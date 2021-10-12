@@ -1,0 +1,14 @@
+{
+  "name": "nr8",
+  "private": true,
+  "config": {
+    "env": "development"
+  },
+  "scripts": {
+    "clean": "lerna clean -y && rm -rf ./node_modules",
+    "postinstall": "lerna bootstrap"
+  },
+  "dependencies": {
+    "lerna": "^4.0.0"
+  }
+}
