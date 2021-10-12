@@ -1,0 +1,20 @@
+---
+apiVersion: nr8.io/v1alpha
+type: Controller
+metadata:
+  name: gateway
+spec:
+  group: nr8.io
+  version: v1alpha
+  hooks:
+    create:
+      handler:
+        type: node
+        path: '@nr8/gateway/controllers/requests'
+        subPath: init
+  eventListeners:
+    - name: requests/create
+      handler:
+        type: node
+        path: '@nr8/gateway/controllers/requests'
+        subPath: create

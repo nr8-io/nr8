@@ -1,0 +1,13 @@
+---
+apiVersion: nr8.io/v1alpha
+type: ResourceDefinition
+metadata:
+  name: queries.nr8.io
+spec:
+  group: nr8.io
+  names:
+    type: Query
+    plural: queries
+    singular: query
+  versions:
+    - name: v1alpha

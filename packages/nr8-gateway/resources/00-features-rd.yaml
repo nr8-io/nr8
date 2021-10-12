@@ -1,0 +1,13 @@
+---
+apiVersion: nr8.io/v1alpha
+type: ResourceDefinition
+metadata:
+  name: features.nr8.io
+spec:
+  group: nr8.io
+  names:
+    type: Feature
+    plural: features
+    singular: feature
+  versions:
+    - name: v1alpha

@@ -1,0 +1,16 @@
+---
+apiVersion: nr8.io/v1alpha
+type: ResourceDefinition
+metadata:
+  name: responses.nr8.io
+spec:
+  transient: true
+  group: nr8.io
+  names:
+    type: Response
+    plural: responses
+    singular: response
+    shortNames:
+      - req
+  versions:
+    - name: v1alpha

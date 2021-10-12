@@ -1,0 +1,10 @@
+---
+apiVersion: nr8.io/v1alpha
+type: Command
+metadata:
+  name: create
+  description: create a resource
+spec:
+  handler:
+    type: node
+    path: ./commands/create

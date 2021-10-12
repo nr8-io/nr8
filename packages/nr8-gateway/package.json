@@ -1,0 +1,41 @@
+{
+  "name": "@nr8/api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "babel ./ --out-dir ./ --extensions \".ts,.tsx\"",
+    "build-declarations": "tsc --project tsconfig.json --outDir ./ --declaration --emitDeclarationOnly",
+    "lint": "eslint --config .eslintrc.json ./ --ext .ts --ext .tsx",
+    "postbuild": "npm run build-declarations",
+    "test": "NODE_ENV=testing mocha './**/*.spec.ts'",
+    "test-dev": "NODE_ENV=development mocha -R min --watch --watch-files ./ --extension ts,tsx",
+    "test-one": "NODE_ENV=development mocha -R min",
+    "test-ts": "tsc --noEmit"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/node": "^7.13.12",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-typescript": "^7.13.0",
+    "@babel/register": "^7.13.8",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@types/chai": "^4.2.15",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "^14.14.43",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "chai": "^4.3.4",
+    "eslint": "^7.22.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-mocha": "^8.1.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "mocha": "^8.3.2",
+    "typescript": "^4.2.3"
+  }
+}

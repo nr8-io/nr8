@@ -1,0 +1,10 @@
+---
+apiVersion: nr8.io/v1alpha
+type: Command
+metadata:
+  name: update
+  description: update a resource
+spec:
+  handler:
+    type: node
+    path: ./commands/update
