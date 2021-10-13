@@ -2,4 +2,4 @@
 *.d.ts
 !.mocharc.js
 !babel.config.js
-!babel.register.js
+!babel.test.config.js

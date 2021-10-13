@@ -98,7 +98,6 @@ export default function (userConfig: any = {}) {
   //
   return {
     init,
-    onReady,
     exec: onReady(exec),
     $storage: storage,
     $events: events,
