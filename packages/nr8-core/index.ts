@@ -4,17 +4,18 @@ import { get } from 'lodash/fp'
 
 //
 import create from './commands/create'
+
+//
 import eventsProvider from './providers/events'
 import queueProvider from './providers/queue'
 import storageProvider from './providers/storage'
-import { loadResources } from './helpers/filesystem'
 
 //
-export { loadResources } from './helpers/filesystem'
+import { loadPath } from './helpers/filesystem'
 
 // config
 export default function (userConfig: any = {}) {
-  const defaultResources = loadResources(path.join(__dirname, 'resources'))
+  const defaultResources = loadPath(path.join(__dirname, 'resources'))
 
   //
   const config = {

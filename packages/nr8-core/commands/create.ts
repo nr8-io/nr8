@@ -4,7 +4,7 @@ import { get } from 'lodash/fp'
 
 //
 import jp from '@nr8/jmespath'
-import { error } from '@nr8/core/providers/log'
+import { error } from 'providers/log'
 
 //
 import { eventListeners } from '../providers/events'

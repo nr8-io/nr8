@@ -83,7 +83,7 @@ export default function (options = defaultStorageOptions) {
     }
 
     const uid = _.get('metadata.uid', obejct)
-    const index = await adaptor.get(`/indexes/${uid}`)
+    const index: any = await adaptor.get(`/indexes/${uid}`)
 
     await adaptor.del(`/objects/${uid}`)
     await adaptor.del(`/indexes/${uid}`)

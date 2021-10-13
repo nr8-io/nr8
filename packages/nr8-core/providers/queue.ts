@@ -38,7 +38,6 @@ function watcher (queue, consumer) {
 
 export default function (config = {}) {
   const topics = {}
-  const consumers = []
 
   //
   async function assertQueue (topic) {

@@ -5,10 +5,9 @@ import { flatMap, isArray } from 'lodash'
 import { isPlainObject } from 'lodash/fp'
 
 //
-function allowedExtensions (file) {
-  return ['.yml', '.yaml', '.js', '.json'].includes(path.extname(file))
-}
+const extensions = ['.yml', '.yaml', '.js', '.json']
 
+//
 function yamlLoadAll (file) {
   const dir = path.dirname(file)
 
@@ -26,7 +25,12 @@ function yamlLoadAll (file) {
 }
 
 //
-export function loadFromFiles (files) {
+function allowedExtensions (file) {
+  return extensions.includes(path.extname(file))
+}
+
+//
+export function loadFiles (files) {
   const objects = flatMap(files.filter(allowedExtensions), (file) => {
     switch (path.extname(file)) {
       case '.yml':
@@ -64,10 +68,10 @@ export function loadFromFiles (files) {
 }
 
 //
-export function loadResources (path) {
+export function loadPath (path) {
   const files = fs.readdirSync(path)
     .map((file) => `${path}/${file}`)
     .filter(allowedExtensions)
 
-  return loadFromFiles(files)
+  return loadFiles(files)
 }

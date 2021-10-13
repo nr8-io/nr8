@@ -1,20 +1,21 @@
 {
-  "name": "@nr8/api",
+  "name": "@nr8/gateway",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "build": "babel ./ --out-dir ./ --extensions \".ts,.tsx\"",
     "build-declarations": "tsc --project tsconfig.json --outDir ./ --declaration --emitDeclarationOnly",
     "lint": "eslint --config .eslintrc.json ./ --ext .ts --ext .tsx",
     "postbuild": "npm run build-declarations",
-    "test": "NODE_ENV=testing mocha './**/*.spec.ts'",
+    "test": "NODE_ENV=testing mocha './{,!(node_modules)/**}/*.spec.ts'",
     "test-dev": "NODE_ENV=development mocha -R min --watch --watch-files ./ --extension ts,tsx",
     "test-one": "NODE_ENV=development mocha -R min",
     "test-ts": "tsc --noEmit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@nr8/jmespath": "^1.0.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.13.10",
     "@babel/core": "^7.13.10",
