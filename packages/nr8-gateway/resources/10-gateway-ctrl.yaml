@@ -1,11 +1,8 @@
 ---
-apiVersion: nr8.io/v1alpha
 type: Controller
 metadata:
   name: gateway
 spec:
-  group: nr8.io
-  version: v1alpha
   hooks:
     create:
       handler:

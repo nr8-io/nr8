@@ -1,13 +1,10 @@
 ---
-apiVersion: nr8.io/v1alpha
 type: ResourceDefinition
 metadata:
   name: routers.nr8.io
 spec:
-  group: nr8.io
+  group: gateway.nr8.io
   names:
     type: Router
     plural: routers
     singular: router
-  versions:
-    - name: v1alpha

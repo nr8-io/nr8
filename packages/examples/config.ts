@@ -73,5 +73,5 @@ export function loadPath (path) {
     .map((file) => `${path}/${file}`)
     .filter(allowedExtensions)
 
-  return loadFiles(files)
+  return loadPath(files)
 }

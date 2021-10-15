@@ -1,43 +1,35 @@
-import NodeCache from 'node-cache'
-import _, { startsWith } from 'lodash/fp'
 import async from 'async'
+import _, { startsWith } from 'lodash/fp'
 
-//
-const cache = new NodeCache()
-
-//
+// simple in memory storage adaptor
 export function defaultStorageAdaptor () {
+  const cache = {}
+
   return {
     get: async (path: any) => {
-      return cache.get(path)
+      return cache[path]
     },
     set: async (path: any, val: any) => {
-      return cache.set(path, val)
+      cache[path] = val
+      return val
     },
     del: async (path: any) => {
-      return cache.del(path)
+      delete cache[path]
     },
     lget: async (path: any) => {
-      const keys = cache.keys()
+      const keys = Object.keys(cache)
         .filter(startsWith(path))
 
-      return keys.map((key) => cache.get(key))
+      return keys.map((key) => cache[key])
     },
     keys: async () => {
-      return cache.keys()
+      return Object.keys(cache)
     }
   }
 }
 
 //
-const defaultStorageOptions = {
-  adaptor: defaultStorageAdaptor()
-}
-
-//
-export default function (options = defaultStorageOptions) {
-  const { adaptor } = options
-
+export default function (adaptor = defaultStorageAdaptor()) {
   // get a single resource
   async function get (path: any) {
     const result = await adaptor.get(path)

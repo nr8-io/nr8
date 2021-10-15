@@ -6,18 +6,18 @@ export async function list (resource) {
   const { events, storage } = this
 
   //
-  const definition = await storage.get(`/definitions_by_name/${resource}`)
+  const definition = await storage.get(`/definitions/${resource}`)
 
   if (!definition) {
     throw new Error(`definition for "${resource}" does not exist`)
   }
 
   const plural = get('spec.names.plural', definition)
-  const result = await storage.lget(`/${plural}/`)
+  const result = await storage.lget(`/resources/${plural}/`)
 
   if (result) {
     events.emit('/objects/list', result)
-    events.emit(`/${plural}/list`, result)
+    events.emit(`/resources/${plural}/list`, result)
 
     return result
   }
@@ -28,7 +28,7 @@ export async function readTransient (resource, id) {
   const { events, storage } = this
 
   //
-  const definition = await storage.get(`/definitions_by_name/${resource}`)
+  const definition = await storage.get(`/definitions/${resource}`)
 
   if (!definition) {
     throw new Error(`definition for "${resource}" does not exist`)
@@ -57,8 +57,8 @@ export async function readTransient (resource, id) {
     events.emit('/objects/read', result)
     events.emit(`/objects/${uid}/read`, result)
 
-    events.emit(`/${plural}/read`, result)
-    events.emit(`/${plural}/${name}/read`, result)
+    events.emit(`/resources/${plural}/read`, result)
+    events.emit(`/resources/${plural}/${name}/read`, result)
 
     return result
   } catch (err) {
@@ -77,7 +77,7 @@ export default async function read (resource, id?) {
   }
 
   //
-  const definition = await storage.get(`/definitions_by_name/${resource}`)
+  const definition = await storage.get(`/definitions/${resource}`)
 
   if (!definition) {
     throw new Error(`definition for "${resource}" does not exist`)
@@ -88,7 +88,7 @@ export default async function read (resource, id?) {
   const plural = get('spec.names.plural', definition)
 
   //
-  const result = await storage.get(`/${plural}/${id}`)
+  const result = await storage.get(`/resources/${plural}/${id}`)
 
   //
   if (result) {
@@ -98,8 +98,8 @@ export default async function read (resource, id?) {
     events.emit('/objects/read', result)
     events.emit(`/objects/${uid}/read`, result)
 
-    events.emit(`/${plural}/read`, result)
-    events.emit(`/${plural}/${name}/read`, result)
+    events.emit(`/resources/${plural}/read`, result)
+    events.emit(`/resources/${plural}/${name}/read`, result)
 
     return result
   } else if (transient) {
