@@ -1,35 +1,11 @@
 import async from 'async'
-import _, { startsWith } from 'lodash/fp'
+import { get as _get } from 'lodash/fp'
 
 // simple in memory storage adaptor
-export function defaultStorageAdaptor () {
-  const cache = {}
-
-  return {
-    get: async (path: any) => {
-      return cache[path]
-    },
-    set: async (path: any, val: any) => {
-      cache[path] = val
-      return val
-    },
-    del: async (path: any) => {
-      delete cache[path]
-    },
-    lget: async (path: any) => {
-      const keys = Object.keys(cache)
-        .filter(startsWith(path))
-
-      return keys.map((key) => cache[key])
-    },
-    keys: async () => {
-      return Object.keys(cache)
-    }
-  }
-}
+import defaultStorage from 'adaptors/default-storage'
 
 //
-export default function (adaptor = defaultStorageAdaptor()) {
+export default function (adaptor = defaultStorage()) {
   // get a single resource
   async function get (path: any) {
     const result = await adaptor.get(path)
@@ -56,7 +32,7 @@ export default function (adaptor = defaultStorageAdaptor()) {
 
   //
   async function set (object, index = []) {
-    const uid = _.get('metadata.uid', object)
+    const uid = _get('metadata.uid', object)
 
     await adaptor.set(`/objects/${uid}`, object)
     await adaptor.set(`/indexes/${uid}`, index)
@@ -74,7 +50,7 @@ export default function (adaptor = defaultStorageAdaptor()) {
       obejct = await adaptor.get(obejct)
     }
 
-    const uid = _.get('metadata.uid', obejct)
+    const uid = _get('metadata.uid', obejct)
     const index: any = await adaptor.get(`/indexes/${uid}`)
 
     await adaptor.del(`/objects/${uid}`)
@@ -85,11 +61,5 @@ export default function (adaptor = defaultStorageAdaptor()) {
     })
   }
 
-  return {
-    set,
-    get,
-    del,
-    lget,
-    keys: adaptor.keys
-  }
+  return { set, get, del, lget, keys: adaptor.keys }
 }

@@ -106,6 +106,7 @@ export async function createResourceDefinition (object) {
 
   //
   const uid = nanoid()
+  const index = name || uid // unique key
   const type = get('spec.names.type', object)
   const singular = get('spec.names.singular', object)
   const plural = get('spec.names.plural', object)
@@ -127,7 +128,8 @@ export async function createResourceDefinition (object) {
   await storage.set(nextObject, [
     `/definitions/${type}`,
     `/definitions/${singular}`,
-    `/definitions/${plural}`
+    `/definitions/${plural}`,
+    `/resources/definitions/${index}`
   ])
 
   //

@@ -69,10 +69,10 @@ export async function readTransient (resource, id) {
 }
 
 //
-export default async function read (resource, id?) {
+export default async function read (resource, index?) {
   const { events, storage } = this
 
-  if (!id) {
+  if (!index) {
     return list.apply(this, [resource])
   }
 
@@ -88,7 +88,7 @@ export default async function read (resource, id?) {
   const plural = get('spec.names.plural', definition)
 
   //
-  const result = await storage.get(`/resources/${plural}/${id}`)
+  const result = await storage.get(`/resources/${plural}/${index}`)
 
   //
   if (result) {
@@ -103,6 +103,6 @@ export default async function read (resource, id?) {
 
     return result
   } else if (transient) {
-    return readTransient.apply(this, [resource, id])
+    return readTransient.apply(this, [resource, index])
   }
 }

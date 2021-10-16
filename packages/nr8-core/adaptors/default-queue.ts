@@ -1,5 +1,5 @@
 //
-export function defaultQueueAdaptor () {
+export default function () {
   const topics = {}
 
   //
@@ -62,24 +62,6 @@ export function defaultQueueAdaptor () {
     const queue = await assertQueue(topic)
 
     watcher(queue, consumer)
-  }
-
-  return {
-    publish,
-    subscribe
-  }
-}
-
-//
-export default function (adaptor = defaultQueueAdaptor()) {
-  // get a single resource
-  async function publish (topic, object) {
-    adaptor.publish(topic, object)
-  }
-
-  // get a single resource
-  async function subscribe (topic, consumer) {
-    adaptor.subscribe(topic, consumer)
   }
 
   return {
