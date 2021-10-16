@@ -2,7 +2,7 @@ import pino from 'pino'
 
 //
 const log = pino({
-  level: 'trace',
+  level: process.env.NODE_ENV === 'development' ? 'trace' : 'debug',
   prettyPrint: {
     colorize: false,
     singleLine: true,

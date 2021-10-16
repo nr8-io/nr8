@@ -10,6 +10,8 @@ export const eventListeners = {}
 export default function (adaptor = defaultEventsAdaptor()) {
   const ee = new EventEmitter()
 
+  ee.setMaxListeners(0)
+
   // @TODO add cluster ee adaptor
 
   return ee
