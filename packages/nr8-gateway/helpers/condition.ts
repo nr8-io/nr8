@@ -1,5 +1,4 @@
-import { every, some } from 'lodash'
-import { get } from 'lodash/fp'
+import { every, get, some } from 'lodash'
 
 //
 const when = {
@@ -54,7 +53,7 @@ export function condition (cond, object) {
   const [path, args] = pathAndArgs(expr)
 
   //
-  const value = get(path, object)
+  const value = get(object, path)
 
   switch (method) {
     case 'and':

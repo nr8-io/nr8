@@ -1,4 +1,4 @@
-import defaultQueue from 'adaptors/default-queue'
+import defaultQueue from '../adaptors/default-queue'
 
 //
 export default function (adaptor = defaultQueue()) {

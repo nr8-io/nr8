@@ -1,5 +1,5 @@
 import { once } from 'events'
-import { get, getOr } from 'lodash/fp'
+import { get } from 'lodash'
 
 //
 export async function list (resource) {
@@ -12,7 +12,7 @@ export async function list (resource) {
     throw new Error(`definition for "${resource}" does not exist`)
   }
 
-  const plural = get('spec.names.plural', definition)
+  const plural = get(definition, 'spec.names.plural')
   const result = await storage.lget(`/resources/${plural}/`)
 
   if (result) {
@@ -51,14 +51,14 @@ export async function readTransient (resource, id) {
       signal: abortController.signal
     })
 
-    const uid = get('metdata.uid', result)
-    const name = getOr(uid, 'metdata.name', result)
+    const uid = get(result, 'metdata.uid')
+    const index = get(result, 'metdata.name', uid)
 
     events.emit('/objects/read', result)
     events.emit(`/objects/${uid}/read`, result)
 
     events.emit(`/resources/${plural}/read`, result)
-    events.emit(`/resources/${plural}/${name}/read`, result)
+    events.emit(`/resources/${plural}/${index}/read`, result)
 
     return result
   } catch (err) {
@@ -84,22 +84,22 @@ export default async function read (resource, index?) {
   }
 
   //
-  const transient = get('spec.transient', definition)
-  const plural = get('spec.names.plural', definition)
+  const transient = get(definition, 'spec.transient')
+  const plural = get(definition, 'spec.names.plural')
 
   //
   const result = await storage.get(`/resources/${plural}/${index}`)
 
   //
   if (result) {
-    const uid = get('metdata.uid', result)
-    const name = getOr(uid, 'metdata.name', result)
+    const uid = get(result, 'metdata.uid')
+    const index = get(result, 'metdata.name', uid)
 
     events.emit('/objects/read', result)
     events.emit(`/objects/${uid}/read`, result)
 
     events.emit(`/resources/${plural}/read`, result)
-    events.emit(`/resources/${plural}/${name}/read`, result)
+    events.emit(`/resources/${plural}/${index}/read`, result)
 
     return result
   } else if (transient) {

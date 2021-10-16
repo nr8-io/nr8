@@ -1,20 +1,21 @@
+import { loadFile as yaml } from '@nr8/yaml'
 import { eachSeries } from 'async'
 import { set } from 'lodash'
 
 // core api
-import create from 'core/create'
-import read from 'core/read'
-import update from 'core/update'
-import destroy from 'core/destroy'
-
-// definitions
-import ResourceDefinition from 'definintions/ResourceDefinition'
-import Controller from 'definintions/Controller'
+import create from './core/create'
+import read from './core/read'
+import update from './core/update'
+import destroy from './core/destroy'
 
 // providers
-import eventsProvider from 'providers/events'
-import queueProvider from 'providers/queue'
-import storageProvider from 'providers/storage'
+import eventsProvider from './providers/events'
+import queueProvider from './providers/queue'
+import storageProvider from './providers/storage'
+
+// definitions
+const controllers = yaml(__dirname, 'definitions/controllers.yaml')
+const definiitions = yaml(__dirname, 'definitions/definitions.yaml')
 
 //
 export default function (userConfig: any = {}) {
@@ -22,8 +23,8 @@ export default function (userConfig: any = {}) {
   const config = {
     ...userConfig,
     resources: [
-      ResourceDefinition,
-      Controller,
+      controllers,
+      definiitions,
       ...userConfig.resources || []
     ]
   }
@@ -60,9 +61,12 @@ export default function (userConfig: any = {}) {
 
   // init nr8 core by creating default resources
   async function init () {
-    await eachSeries(config.resources, async (resource) => {
-      return create.apply(context, [resource])
-    })
+    await api.create(definiitions)
+    // await eachSeries(config.resources, async (resource) => {
+    //   return create.apply(context, [resource])
+    // })
+
+    console.log('done')
 
     initialized = true
   }

@@ -1,6 +1,5 @@
 import { nanoid } from 'nanoid'
-import { forEach } from 'lodash'
-import { get } from 'lodash/fp'
+import { get, forEach } from 'lodash'
 
 //
 import { eventListeners } from '../providers/events'
@@ -18,9 +17,9 @@ export async function createController (object) {
   }
 
   //
-  const singular = get('spec.names.singular', definition)
-  const plural = get('spec.names.plural', definition)
-  const name = get('metadata.name', object)
+  const singular = get(definition, 'spec.names.singular')
+  const plural = get(definition, 'spec.names.plural')
+  const name = get(object, 'metadata.name')
 
   //
   const resource = await storage.get(`/resources/${plural}/${name}`)
@@ -45,8 +44,13 @@ export async function createController (object) {
     }
   }
 
+  console.log(nextObject)
+
   // controller hook
-  const hook = get('spec.hooks.create.handler', nextObject)
+  const hook = get(nextObject, 'spec.hooks.create.handler')
+
+  console.log(hook)
+
 
   if (hook && hook.type === 'node') {
     const module = require(hook.path)
@@ -70,7 +74,7 @@ export async function createController (object) {
   events.emit(`/resources/${plural}/${index}/create`, nextObject)
 
   // attach event listeners
-  const listeners = get('spec.eventListeners', nextObject)
+  const listeners = get(nextObject, 'spec.eventListeners')
 
   forEach(listeners, ({ name, handler }) => {
     if (handler && handler.type === 'node') {
@@ -95,7 +99,7 @@ export async function createResourceDefinition (object) {
   // @TODO validate ResourceDefinition
 
   //
-  const name = get('metadata.name', object)
+  const name = get(object, 'metadata.name')
 
   //
   const resource = await storage.get(`/objects/${name}`)
@@ -107,9 +111,9 @@ export async function createResourceDefinition (object) {
   //
   const uid = nanoid()
   const index = name || uid // unique key
-  const type = get('spec.names.type', object)
-  const singular = get('spec.names.singular', object)
-  const plural = get('spec.names.plural', object)
+  const type = get(object, 'spec.names.type')
+  const singular = get(object, 'spec.names.singular')
+  const plural = get(object, 'spec.names.plural')
 
   //
   const nextObject = {
@@ -149,9 +153,9 @@ export async function createResource (object) {
   }
 
   //
-  const singular = get('spec.names.singular', definition)
-  const plural = get('spec.names.plural', definition)
-  const name = get('metadata.name', object)
+  const singular = get(definition, 'spec.names.singular')
+  const plural = get(definition, 'spec.names.plural')
+  const name = get(object, 'metadata.name')
 
   //
   const resource = await storage.get(`/resources/${plural}/${name}`)
@@ -177,7 +181,7 @@ export async function createResource (object) {
   }
 
   // don't write transient objects to storage on create
-  const transient = get('spec.transient', definition)
+  const transient = get(definition, 'spec.transient')
 
   if (!transient) {
     await storage.set(nextObject, [
@@ -202,13 +206,15 @@ export default async function create (object) {
 
   // @TODO validate api object
 
+  throw new Error('banana fucker')
+
   // handle special resource types
   switch (type) {
     case 'Controller':
-      return await createController.apply(this, [object])
+      return createController.apply(this, [object])
     case 'ResourceDefinition':
-      return await createResourceDefinition.apply(this, [object])
+      return createResourceDefinition.apply(this, [object])
     default:
-      return await createResource.apply(this, [object])
+      return createResource.apply(this, [object])
   }
 }

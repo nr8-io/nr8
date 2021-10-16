@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { get } from 'lodash/fp'
+import { get } from 'lodash'
 
 //
 import jp from '@nr8/jmespath'
@@ -47,15 +47,15 @@ export async function create (request) {
   const [router, policy] = matchRouter(routers, requestObject)
 
   if (router && policy) {
-    const serviceName = get('proxy.service.name', policy)
-    const groupName = get('proxy.service.group', policy)
+    const serviceName = get(policy, 'proxy.service.name')
+    const groupName = get(policy, 'proxy.service.group')
 
     //
     const service = await exec('read', 'service', serviceName)
 
     if (service) {
       const serviceGroup = jp(`spec.groups[?name==\`${groupName}\`] | [0]`, service)
-      const target = get('targets[0]', serviceGroup)
+      const target = get(serviceGroup, 'targets[0]')
 
       if (target.type === 'node') {
         const module = require(target.path)

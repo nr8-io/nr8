@@ -1,8 +1,8 @@
 import async from 'async'
-import { get as _get } from 'lodash/fp'
+import { get as _get } from 'lodash'
 
 // simple in memory storage adaptor
-import defaultStorage from 'adaptors/default-storage'
+import defaultStorage from '../adaptors/default-storage'
 
 //
 export default function (adaptor = defaultStorage()) {
@@ -32,7 +32,7 @@ export default function (adaptor = defaultStorage()) {
 
   //
   async function set (object, index = []) {
-    const uid = _get('metadata.uid', object)
+    const uid = _get(object, 'metadata.uid')
 
     await adaptor.set(`/objects/${uid}`, object)
     await adaptor.set(`/indexes/${uid}`, index)
@@ -50,7 +50,7 @@ export default function (adaptor = defaultStorage()) {
       obejct = await adaptor.get(obejct)
     }
 
-    const uid = _get('metadata.uid', obejct)
+    const uid = _get(obejct, 'metadata.uid')
     const index: any = await adaptor.get(`/indexes/${uid}`)
 
     await adaptor.del(`/objects/${uid}`)

@@ -1,5 +1,4 @@
-import { find } from 'lodash'
-import { get } from 'lodash/fp'
+import { find, get } from 'lodash'
 
 //
 import { condition } from './condition'
@@ -7,7 +6,7 @@ import { condition } from './condition'
 //
 export function matchRouter (routers, object) {
   for (let i = 0; i < routers.length; i++) {
-    const policies = get('spec.policies', routers[i])
+    const policies = get(routers[i], 'spec.policies')
     const policy = find(policies, (v: any) => condition(v.when, object))
 
     if (policy) {

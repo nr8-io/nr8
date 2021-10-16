@@ -1,7 +1,7 @@
 import EventEmitter from 'events'
 
 //
-import defaultEventsAdaptor from 'adaptors/default-events'
+import defaultEventsAdaptor from '../adaptors/default-events'
 
 //
 export const eventListeners = {}

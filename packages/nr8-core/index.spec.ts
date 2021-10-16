@@ -1,9 +1,10 @@
 import 'mocha'
 import { expect } from 'chai'
-import { get } from 'lodash/fp'
 
-import { trace } from 'providers/log'
+//
+import { trace } from './providers/log'
 
+//
 import nr8 from './index'
 
 //
