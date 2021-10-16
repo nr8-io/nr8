@@ -14,6 +14,7 @@
     "test-ts": "tsc --noEmit"
   },
   "dependencies": {
+    "@nr8/core": "^1.0.0",
     "@nr8/jmespath": "^1.0.0"
   },
   "devDependencies": {
