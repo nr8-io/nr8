@@ -28,6 +28,8 @@ async function main () {
     ]
   })
 
+  console.log(api)
+
   await api.init()
 }
 
