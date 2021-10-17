@@ -3,7 +3,7 @@ const config = require('./babel.config')
 require('@babel/register')({
   ...config,
   configFile: false,
-  extensions: ['.ts', '.tsx', '.js', '.jsx'],
+  extensions: ['.ts', '.tsx'],
   ignore: [
     'node_modules'
   ]
