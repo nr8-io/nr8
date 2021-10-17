@@ -7,7 +7,7 @@ import defaultEventsAdaptor from '../adaptors/default-events'
 export const eventListeners = {}
 
 // @TODO allow extension of events to pubsub etc
-export default function (adaptor = defaultEventsAdaptor()) {
+export default function (adaptor = defaultEventsAdaptor()): any {
   const ee = new EventEmitter()
 
   ee.setMaxListeners(0)
