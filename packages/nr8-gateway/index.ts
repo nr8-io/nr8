@@ -22,15 +22,17 @@ export const controllers = [
 
 async function main () {
   const api = nr8({
-    resources: [
-      ...controllers,
-      ...definitions
-    ]
+    resources: [{
+      type: 'Controller',
+      metadata: {
+        name: 'test'
+      }
+    }]
   })
 
-  console.log(api)
-
   await api.init()
+
+  console.log('api', api)
 }
 
 main()

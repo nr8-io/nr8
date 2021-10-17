@@ -196,11 +196,14 @@ export async function createResource (ctx, object) {
 }
 
 //
-export default function create (ctx, object) {
+export default async function create (ctx, object) {
   const { type } = object
+
+  console.log(1, type)
 
   // @TODO validate api object
   if (!type) {
+    console.log('error')
     throw new Error('type is required')
   }
 

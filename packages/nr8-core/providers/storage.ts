@@ -37,9 +37,13 @@ export default function (adaptor = defaultStorage()) {
     await adaptor.set(`/objects/${uid}`, object)
     await adaptor.set(`/indexes/${uid}`, index)
 
+    console.log(index)
+
     await async.each(index, async (index) => {
       await adaptor.set(index, `/objects/${uid}`)
     })
+
+    console.log(1, uid)
   }
 
   // get a single resource

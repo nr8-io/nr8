@@ -1,4 +1,4 @@
 module.exports = {
-  require: "./babel.test.config.js",
+  require: "./babel.test.js",
   color: true
 }

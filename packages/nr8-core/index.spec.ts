@@ -2,15 +2,16 @@ import 'mocha'
 import { expect } from 'chai'
 
 //
-import { trace } from './providers/log'
+import nr8 from './index'
 
 //
-import nr8 from './index'
+import { trace } from './providers/log'
 
 //
 describe('core', async () => {
   const api = nr8({
     resources: [{
+      type: 'Controller',
       metadata: {
         name: 'test'
       }
@@ -22,12 +23,6 @@ describe('core', async () => {
   //
   it('should have a definition named definitions.nr8.io', async function () {
     const definition = await api.read('definition', 'definitions.nr8.io')
-
-    await api.create({
-      metadata: {
-        name: 'test2'
-      }
-    })
 
     trace(definition)
 

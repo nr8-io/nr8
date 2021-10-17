@@ -7,6 +7,7 @@
     "build": "babel ./ --out-dir ./ --extensions \".ts,.tsx\"",
     "build-declarations": "tsc --project tsconfig.json --outDir ./ --declaration --emitDeclarationOnly",
     "clean": "git clean -f -X -e node_modules",
+    "dev": "nodemon --watch ./ -r ./babel.dev.js ./index.ts",
     "lint": "eslint --config .eslintrc.json ./ --ext .ts --ext .tsx",
     "postbuild": "npm run build-declarations",
     "test": "NODE_ENV=testing mocha './{,!(node_modules)/**}/*.spec.ts'",
@@ -24,7 +25,6 @@
   "devDependencies": {
     "@babel/cli": "^7.13.10",
     "@babel/core": "^7.13.10",
-    "@babel/node": "^7.13.12",
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-typescript": "^7.13.0",
     "@babel/register": "^7.13.8",
@@ -44,6 +44,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
     "mocha": "^8.3.2",
+    "nodemon": "^2.0.13",
     "typescript": "^4.2.3"
   }
 }

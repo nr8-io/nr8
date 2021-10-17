@@ -62,9 +62,11 @@ export default function (userConfig: any = {}) {
 
   // init nr8 core by creating default resources
   async function init () {
-    await eachSeries(config.resources, async (resource) => {
-      return create(context, resource)
-    })
+    console.log(config.resources)
+
+    await create(context, config.resources[0])
+    console.log('eh?')
+    await create(context, config.resources[1])
 
     initialized = true
   }
