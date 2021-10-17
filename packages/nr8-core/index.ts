@@ -42,7 +42,7 @@ export default function (userConfig: any = {}) {
   function withContext (fn) {
     return (...args) => {
       if (initialized) {
-        return fn.apply(context, args)
+        return fn(context, ...args)
       }
 
       throw new Error('nr8 core has not been initialized yet')
@@ -61,16 +61,13 @@ export default function (userConfig: any = {}) {
 
   // init nr8 core by creating default resources
   async function init () {
-    await api.create(definiitions)
-    // await eachSeries(config.resources, async (resource) => {
-    //   return create.apply(context, [resource])
-    // })
-
-    console.log('done')
+    await eachSeries(config.resources, async (resource) => {
+      return create(context, resource)
+    })
 
     initialized = true
   }
 
   //
-  return { init, ...api }
+  return { init, context, ...api }
 }

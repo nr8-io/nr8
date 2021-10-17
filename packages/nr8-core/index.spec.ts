@@ -20,6 +20,15 @@ describe('core', async () => {
 
   await api.init()
 
+  await api.create({
+    type: 'Controller',
+    metadata: {
+      name: 'test2'
+    }
+  })
+
+  console.log(await api.context.storage.keys())
+
   //
   it('should have a definition named definitions.nr8.io', async function () {
     const definition = await api.read('definition', 'definitions.nr8.io')

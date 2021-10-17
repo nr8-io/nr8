@@ -2,8 +2,8 @@ import { once } from 'events'
 import { get } from 'lodash'
 
 //
-export async function list (resource) {
-  const { events, storage } = this
+export async function list (ctx, resource) {
+  const { events, storage } = ctx
 
   //
   const definition = await storage.get(`/definitions/${resource}`)
@@ -24,8 +24,8 @@ export async function list (resource) {
 }
 
 // read from transient create events
-export async function readTransient (resource, id) {
-  const { events, storage } = this
+export async function readTransient (ctx, resource, id) {
+  const { events, storage } = ctx
 
   //
   const definition = await storage.get(`/definitions/${resource}`)
@@ -69,11 +69,11 @@ export async function readTransient (resource, id) {
 }
 
 //
-export default async function read (resource, index?) {
-  const { events, storage } = this
+export default async function read (ctx, resource, index?) {
+  const { events, storage } = ctx
 
   if (!index) {
-    return list.apply(this, [resource])
+    return list(ctx, resource)
   }
 
   //
@@ -103,6 +103,6 @@ export default async function read (resource, index?) {
 
     return result
   } else if (transient) {
-    return readTransient.apply(this, [resource, index])
+    return readTransient(ctx, resource, index)
   }
 }

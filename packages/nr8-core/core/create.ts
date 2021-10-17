@@ -5,8 +5,8 @@ import { get, forEach } from 'lodash'
 import { eventListeners } from '../providers/events'
 
 //
-export async function createController (object) {
-  const { storage, events } = this
+export async function createController (ctx, object) {
+  const { storage, events } = ctx
   const { type } = object
 
   //
@@ -44,8 +44,6 @@ export async function createController (object) {
     }
   }
 
-  console.log(nextObject)
-
   // controller hook
   const hook = get(nextObject, 'spec.hooks.create.handler')
 
@@ -55,7 +53,7 @@ export async function createController (object) {
   if (hook && hook.type === 'node') {
     const module = require(hook.path)
 
-    nextObject = await module[hook.subPath || 'default'].apply(this, [nextObject])
+    nextObject = await module[hook.subPath || 'default'](ctx, nextObject)
 
     // @TODO validate response
   }
@@ -81,7 +79,7 @@ export async function createController (object) {
       const module = require(handler.path)
 
       eventListeners[`/resources/${plural}/${name}`] = async (object) => {
-        await module[handler.subPath || 'default'].apply(this, [object])
+        await module[handler.subPath || 'default'](ctx, object)
       }
 
       events.on(`/resources/${name}`, eventListeners[`/resources/${plural}/${name}`])
@@ -93,8 +91,8 @@ export async function createController (object) {
 }
 
 //
-export async function createResourceDefinition (object) {
-  const { storage } = this
+export async function createResourceDefinition (ctx, object) {
+  const { storage } = ctx
 
   // @TODO validate ResourceDefinition
 
@@ -141,8 +139,8 @@ export async function createResourceDefinition (object) {
 }
 
 // default create method
-export async function createResource (object) {
-  const { storage, events } = this
+export async function createResource (ctx, object) {
+  const { storage, events } = ctx
   const { type } = object
 
   //
@@ -201,20 +199,18 @@ export async function createResource (object) {
 }
 
 //
-export default async function create (object) {
+export default function create (ctx, object) {
   const { type } = object
 
   // @TODO validate api object
 
-  throw new Error('banana fucker')
-
   // handle special resource types
   switch (type) {
     case 'Controller':
-      return createController.apply(this, [object])
+      return createController(ctx, object)
     case 'ResourceDefinition':
-      return createResourceDefinition.apply(this, [object])
+      return createResourceDefinition(ctx, object)
     default:
-      return createResource.apply(this, [object])
+      return createResource(ctx, object)
   }
 }
