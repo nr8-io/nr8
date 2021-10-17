@@ -6,6 +6,7 @@
   "scripts": {
     "build": "babel ./ --out-dir ./ --extensions \".ts,.tsx\"",
     "build-declarations": "tsc --project tsconfig.json --outDir ./ --declaration --emitDeclarationOnly",
+    "clean": "git clean -f -X -e node_modules",
     "dev": "babel-node ./index.ts --extensions \".ts,.tsx\"",
     "lint": "eslint --config .eslintrc.json ./ --ext .ts --ext .tsx",
     "postbuild": "npm run build-declarations",

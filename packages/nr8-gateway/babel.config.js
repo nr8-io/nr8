@@ -1,7 +1,7 @@
 module.exports = {
   ignore: [
-    '**/node_modules',
-    '**/*.spec.ts'
+    'node_modules',
+    '*.spec.ts'
   ],
   presets: [
     ['@babel/env', {

@@ -47,9 +47,6 @@ export async function createController (ctx, object) {
   // controller hook
   const hook = get(nextObject, 'spec.hooks.create.handler')
 
-  console.log(hook)
-
-
   if (hook && hook.type === 'node') {
     const module = require(hook.path)
 

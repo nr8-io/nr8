@@ -5,6 +5,6 @@ require('@babel/register')({
   configFile: false,
   extensions: ['.ts', '.tsx', '.js', '.jsx'],
   ignore: [
-    '**/node_modules'
+    'node_modules'
   ]
 })
