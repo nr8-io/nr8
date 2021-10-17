@@ -9,6 +9,7 @@ import update from './core/update'
 import destroy from './core/destroy'
 
 // providers
+import { error } from './providers/log'
 import eventsProvider from './providers/events'
 import queueProvider from './providers/queue'
 import storageProvider from './providers/storage'

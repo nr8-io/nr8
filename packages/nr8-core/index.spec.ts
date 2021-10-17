@@ -11,7 +11,6 @@ import nr8 from './index'
 describe('core', async () => {
   const api = nr8({
     resources: [{
-      type: 'Controller',
       metadata: {
         name: 'test'
       }
@@ -20,18 +19,15 @@ describe('core', async () => {
 
   await api.init()
 
-  await api.create({
-    type: 'Controller',
-    metadata: {
-      name: 'test2'
-    }
-  })
-
-  console.log(await api.context.storage.keys())
-
   //
   it('should have a definition named definitions.nr8.io', async function () {
     const definition = await api.read('definition', 'definitions.nr8.io')
+
+    await api.create({
+      metadata: {
+        name: 'test2'
+      }
+    })
 
     trace(definition)
 

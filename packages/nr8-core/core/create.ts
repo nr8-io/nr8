@@ -203,6 +203,9 @@ export default function create (ctx, object) {
   const { type } = object
 
   // @TODO validate api object
+  if (!type) {
+    throw new Error('type is required')
+  }
 
   // handle special resource types
   switch (type) {

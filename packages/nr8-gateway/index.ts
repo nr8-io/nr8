@@ -1,3 +1,5 @@
+//
+import nr8 from '@nr8/core'
 import { loadFile as yaml } from '@nr8/yaml'
 
 //
@@ -17,3 +19,16 @@ export const definitions = [
 export const controllers = [
   yaml(__dirname, 'controllers/gateway.yaml')
 ]
+
+async function main () {
+  const api = nr8({
+    resources: [
+      ...controllers,
+      ...definitions
+    ]
+  })
+
+  await api.init()
+}
+
+main()

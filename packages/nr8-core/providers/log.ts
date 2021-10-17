@@ -4,7 +4,7 @@ import pino from 'pino'
 const log = pino({
   level: process.env.NODE_ENV === 'development' ? 'trace' : 'debug',
   prettyPrint: {
-    colorize: false,
+    colorize: true,
     singleLine: true,
     ignore: 'pid,hostname',
     translateTime: 'SYS:standard'
