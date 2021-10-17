@@ -32,7 +32,11 @@ async function main () {
 
   await api.init()
 
-  console.log('api', api)
+  await api.create({
+    test: 1
+  })
+
+  console.log('done')
 }
 
 main()
