@@ -1,0 +1,18 @@
+---
+schemaVersion: 2.1.0
+metadata:
+  name: nr8
+attributes:
+  che-theia.eclipse.org/sidecar-policy: USE_DEV_CONTAINER
+components:
+  - name: nodejs
+    container:
+      image: node:14
+      command: ["sleep", "86400"]
+      endpoints:
+        - exposure: public
+          name: nodejs
+          protocol: http
+          targetPort: 3000
+      memoryLimit: 1G
+      mountSources: true
