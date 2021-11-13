@@ -7,11 +7,11 @@ spec:
     create:
       handler:
         type: node
-        path: '@nr8/gateway/controllers/requests'
+        path: '@nr8/gateway/handlers/requests'
         subPath: init
   eventListeners:
     - name: requests/create
       handler:
         type: node
-        path: '@nr8/gateway/controllers/requests'
+        path: '@nr8/gateway/handlers/requests'
         subPath: create

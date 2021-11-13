@@ -19,24 +19,3 @@ export const definitions = [
 export const controllers = [
   yaml(__dirname, 'controllers/gateway.yaml')
 ]
-
-async function main () {
-  const api = nr8({
-    resources: [{
-      type: 'Controller',
-      metadata: {
-        name: 'test'
-      }
-    }]
-  })
-
-  await api.init()
-
-  await api.create({
-    test: 1
-  })
-
-  console.log('done')
-}
-
-main()
