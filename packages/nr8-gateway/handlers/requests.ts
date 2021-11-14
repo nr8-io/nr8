@@ -96,7 +96,7 @@ export async function create (request) {
 }
 
 //
-export async function init (object) {
+export async function init (ctx, object) {
   // const { queue } = ctx
 
   // queue.subscribe('/requests/create', async (object) => {
