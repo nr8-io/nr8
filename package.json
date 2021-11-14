@@ -6,7 +6,7 @@
   },
   "scripts": {
     "clean": "lerna clean -y && rm -rf ./node_modules",
-    "postinstall": "lerna bootstrap"
+    "postinstall": "lerna bootstrap --hoist --force-local"
   },
   "dependencies": {
     "lerna": "^4.0.0"
