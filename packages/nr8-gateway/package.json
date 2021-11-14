@@ -1,6 +1,6 @@
 {
   "name": "@nr8/gateway",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -16,9 +16,9 @@
     "test-ts": "tsc --noEmit"
   },
   "dependencies": {
-    "@nr8/core": "^1.0.0",
-    "@nr8/lib-jmespath": "^1.0.0",
-    "@nr8/lib-yaml": "^1.0.0",
+    "@nr8/core": "^0.0.1",
+    "@nr8/lib-jmespath": "^0.0.1",
+    "@nr8/lib-yaml": "^0.0.1",
     "lodash": "^4.17.21"
   },
   "devDependencies": {

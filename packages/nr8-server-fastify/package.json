@@ -1,6 +1,6 @@
 {
   "name": "@nr8/server-fastify",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -16,7 +16,7 @@
     "test-ts": "tsc --noEmit"
   },
   "dependencies": {
-    "@nr8/server-core": "^1.0.0",
+    "@nr8/server-core": "^0.0.1",
     "fastify": "^3.23.1",
     "lodash": "^4.17.21"
   },
