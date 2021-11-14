@@ -1,9 +1,17 @@
 //
 import fastify from '@nr8/server-fastify'
-import { init } from '@nr8/gateway/handlers/requests'
+import { definitions, controllers } from '@nr8/gateway'
 
 //
-const server = fastify({ logger: true })
+const server = fastify({
+  narrative: {
+    resources: [
+      ...controllers,
+      ...definitions
+    ]
+  },
+  logger: true
+})
 
 //
 const start = async () => {
