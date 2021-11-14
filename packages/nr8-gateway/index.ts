@@ -1,5 +1,5 @@
 //
-import { loadFile as yaml } from '@nr8/yaml'
+import { loadFile as yaml } from '@nr8/lib-yaml'
 
 //
 export const definitions = [

@@ -5,7 +5,7 @@ import { join } from 'path'
 
 //
 import nr8 from '@nr8/core'
-import { loadFile as yaml } from '@nr8/yaml'
+import { loadFile as yaml } from '@nr8/lib-yaml'
 
 //
 export const definitions = [

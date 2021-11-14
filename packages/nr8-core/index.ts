@@ -1,4 +1,4 @@
-import { loadFile as yaml } from '@nr8/yaml'
+import { loadFile as yaml } from '@nr8/lib-yaml'
 import { eachSeries } from 'async'
 import { set } from 'lodash'
 

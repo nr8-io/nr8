@@ -1,5 +1,5 @@
 {
-  "name": "@nr8/yaml",
+  "name": "@nr8/examples",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -7,7 +7,7 @@
     "build": "babel ./ --out-dir ./ --extensions \".ts,.tsx\"",
     "build-declarations": "tsc --project tsconfig.json --outDir ./ --declaration --emitDeclarationOnly",
     "clean": "git clean -f -X -e node_modules",
-    "dev": "nodemon --watch ./ -r ./babel.dev.js ./index.ts",
+    "dev": "nodemon --watch ./ -r ./babel.dev.js ./index.ts ",
     "lint": "eslint --config .eslintrc.json ./ --ext .ts --ext .tsx",
     "postbuild": "npm run build-declarations",
     "test": "NODE_ENV=testing mocha './{,!(node_modules)/**}/*.spec.ts'",
@@ -16,7 +16,7 @@
     "test-ts": "tsc --noEmit"
   },
   "dependencies": {
-    "js-yaml": "^4.1.0",
+    "@nr8/server-fastify": "^1.0.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
@@ -26,9 +26,9 @@
     "@babel/preset-typescript": "^7.13.0",
     "@babel/register": "^7.13.8",
     "@types/chai": "^4.2.15",
-    "@types/js-yaml": "^4.0.3",
+    "@types/lodash": "^4.14.175",
     "@types/mocha": "^8.2.2",
-    "@types/node": "^14.14.43",
+    "@types/node": "^16.11.7",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "babel-eslint": "^10.1.0",
     "chai": "^4.3.4",

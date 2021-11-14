@@ -96,8 +96,10 @@ export async function createResourceDefinition (ctx, object) {
   //
   const name = get(object, 'metadata.name')
 
+  console.log(object)
+
   //
-  const resource = await storage.get(`/objects/${name}`)
+  const resource = await storage.get(`/resources/definitions/${name}`)
 
   if (resource) {
     throw new Error(`definition "${name}" already exists`)

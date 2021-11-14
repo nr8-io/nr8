@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid'
 import { get } from 'lodash'
 
 //
-import jp from '@nr8/jmespath'
+import jp from '@nr8/lib-jmespath'
 
 //
 import { matchRouter } from '../helpers/request'
