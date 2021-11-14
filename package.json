@@ -5,8 +5,10 @@
     "env": "development"
   },
   "scripts": {
+    "bootstrap": "lerna bootstrap --hoist --force-local",
     "clean": "lerna clean -y && rm -rf ./node_modules",
-    "postinstall": "lerna bootstrap --hoist --force-local"
+    "postinstall": "npm run bootstrap",
+    "postbootstrap": "npm link @nr8/gateway"
   },
   "dependencies": {
     "lerna": "^4.0.0"
