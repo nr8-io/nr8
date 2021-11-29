@@ -15,10 +15,8 @@ import queueProvider from './providers/queue'
 import storageProvider from './providers/storage'
 
 // plugin composition helper
-export const injectPlugins = curry(async (plugins, target) => {
-  const init = seq(...plugins)
-
-  return init(target)
+export const register = curry(async (target, plugins) => {
+  return seq(...plugins)(target)
 })
 
 // core definitions plugin
@@ -78,12 +76,12 @@ export default async function (config: any = {}) {
   const plugins = [
     withDefinitions,
     withControllers,
-    ...config.plugins
+    ...config.plugins || []
   ]
 
   // core api
   const api = core(config)
 
-  // core api with plugins
-  return injectPlugins(plugins, api)
+  //
+  return register(api, plugins)
 }

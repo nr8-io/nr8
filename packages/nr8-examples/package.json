@@ -9,7 +9,7 @@
     "build-declarations": "tsc --project tsconfig.json --outDir ./ --declaration --emitDeclarationOnly",
     "clean": "git clean -f -X -e node_modules",
     "dev": "nodemon --watch ../ -r ./babel.dev.js ./index.ts ",
-    "one": "node -r ./babel.dev.js",
+    "one": "nodemon --watch ../ -r ./babel.dev.js",
     "lint": "eslint --config .eslintrc.json ./ --ext .ts --ext .tsx",
     "postbuild": "npm run build-declarations",
     "test": "NODE_ENV=testing mocha './{,!(node_modules)/**}/*.spec.ts'",

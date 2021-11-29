@@ -1,30 +1,77 @@
 //
-import narrative from '@nr8/core'
+import nr8 from '@nr8/core'
 
-// wrap nr8 methods for http handlers
-export const handler = (method) => async (resource) => {
+//
+function success (body) {
+  return { status: 200, body }
+}
+
+function notFound () {
+  return { status: 404, body: { message: 'Not Found' } }
+}
+
+//
+function error (message) {
+  return { status: 500, body: { message } }
+}
+
+//
+export const create = (api) => async (resource) => {
   try {
-    const payload = await method(resource)
+    const result = await api.create(resource)
 
-    if (payload) {
-      return { statusCode: 200, payload }
-    } else {
-      return { statusCode: 404, payload: { message: 'Not Found' } }
-    }
+    return success(result)
   } catch (err) {
-    return { statusCode: 500, payload: { message: err.message } }
+    return error(err.message)
+  }
+}
+
+//
+export const read = (api) => async (resource, index?) => {
+  try {
+    const result = await api.read(resource, index)
+
+    if (result) {
+      return success(result)
+    }
+
+    return notFound()
+  } catch (err) {
+    return error(err.message)
+  }
+}
+
+//
+export const update = (api) => async (resource) => {
+  try {
+    const result = await api.update(resource)
+
+    return success(result)
+  } catch (err) {
+    return error(err.message)
+  }
+}
+
+//
+export const del = (api) => async (resource) => {
+  try {
+    const result = await api.delete(resource)
+
+    return success(result)
+  } catch (err) {
+    return error(err.message)
   }
 }
 
 // nr8 http handler wrapper
-export default function (config = {}) {
-  const nr8 = narrative(config)
+export default async function (config = {}) {
+  const api = await nr8(config)
 
   return {
-    init: nr8.init,
-    create: handler(nr8.create),
-    read: handler(nr8.read),
-    update: handler(nr8.update),
-    destroy: handler(nr8.destroy)
+    ...api,
+    create: create(api),
+    read: read(api),
+    update: update(api),
+    delete: del(api)
   }
 }
