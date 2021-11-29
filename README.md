@@ -12,8 +12,5 @@ jmespath used in nr8 libraries with a helpful extensions
 ## nr8-lib-yaml
 yaml in nr8 libraries with a helpful extensions
 
-## nr8-server-core
-nr8-core api wrapper that adds a common http information for use with other http-server libraries to the api return functions to simplify implementation
-
 ## nr8-server-fastify
 library for using nr8 core with fastify server, includes fastify handlers etc to quickly integrate with exsting projects using fastify

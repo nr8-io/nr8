@@ -1,4 +1,5 @@
 //
+import { eachSeries } from 'async'
 import { loadFile as yaml } from '@nr8/lib-yaml'
 
 //
@@ -20,7 +21,11 @@ export const controllers = [
 
 //
 export default async function withGateway (nr8) {
-  await nr8.create(yaml(__dirname, 'controllers/gateway.yaml'))
+  //
+  await eachSeries(definitions, async (def) => nr8.create(def))
+
+  //
+  await eachSeries(controllers, async (def) => nr8.create(def))
 
   return nr8
 }

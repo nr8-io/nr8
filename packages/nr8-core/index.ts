@@ -59,9 +59,9 @@ export function core (userConfig: any = {}) {
 
   // add handlers to context
   set(context, 'create', handlers.create)
-  set(context, 'read', handlers.create)
-  set(context, 'update', handlers.create)
-  set(context, 'delete', handlers.create)
+  set(context, 'read', handlers.read)
+  set(context, 'update', handlers.update)
+  set(context, 'delete', handlers.delete)
 
   //
   return {

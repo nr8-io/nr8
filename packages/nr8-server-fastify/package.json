@@ -17,9 +17,8 @@
     "test-ts": "tsc --noEmit"
   },
   "dependencies": {
-    "@nr8/server-core": "^0.0.2",
-    "fastify": "^3.23.1",
-    "lodash": "^4.17.21"
+    "@nr8/core": "^0.0.2",
+    "fastify": "^3.23.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.10",

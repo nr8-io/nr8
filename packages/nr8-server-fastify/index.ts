@@ -1,76 +1,28 @@
 //
+import nr8 from '@nr8/core'
 import fastify from 'fastify'
-import nr8 from '@nr8/server-core'
 
 //
-export const create = (nr8) => async (req: any, reply) => {
-  const { status, body } = await nr8.create(req.body)
-
-  return reply
-    .code(status)
-    .send(body)
-}
+import create from './handlers/create'
+import update from './handlers/update'
+import { readOne, readAll } from './handlers/read'
+import deleteOne from './handlers/delete'
 
 //
-export const readAll = (nr8) => async (req: any, reply) => {
-  const [resource] = Object.values(req.params)
-
-  //
-  const { status, body } = await nr8.read(resource)
-
-  return reply
-    .code(status)
-    .send(body)
-}
-
-//
-export const readOne = (nr8) => async (req: any, reply) => {
-  const [resource, index] = Object.values(req.params)
-
-  //
-  const { status, body } = await nr8.read(resource, index)
-
-  return reply
-    .code(status)
-    .send(body)
-}
-
-//
-export const updateOne = (nr8) => async (req: any, reply) => {
-  const [resource, index] = Object.values(req.params)
-
-  //
-  const { status, body } = await nr8.update(resource, index, req.body)
-
-  return reply
-    .code(status)
-    .send(body)
-}
-
-//
-export const deleteOne = (nr8) => async (req: any, reply) => {
-  const [resource, index] = Object.values(req.params)
-
-  //
-  const { status, body } = await nr8.delete(resource, index, req.body)
-
-  return reply
-    .code(status)
-    .send(body)
-}
-
-export const routes = (fastify, opts, done) => {
+function routes (server, opts, done) {
   const { api } = opts
 
-  fastify.get('/:resource', readAll(api))
-  fastify.get('/:resource/:id', readOne(api))
-  fastify.put('/:resource/:id', updateOne(api))
-  fastify.delete('/:resource/:id', deleteOne(api))
+  server.post('/:resource', create(api))
+  server.get('/:resource', readAll(api))
+  server.get('/:resource/:id', readOne(api))
+  server.put('/:resource/:id', update(api))
+  server.delete('/:resource/:id', deleteOne(api))
 
   done()
 }
 
-export default async function (config: any = {}) {
+//
+async function server (config: any = {}) {
   const { server: serverConfig, ...apiConfig } = config
 
   // 
@@ -99,4 +51,17 @@ export default async function (config: any = {}) {
     server,
     listen
   }
+}
+
+//
+export default server
+
+//
+export {
+  routes,
+  create,
+  update,
+  readOne,
+  readAll,
+  deleteOne
 }

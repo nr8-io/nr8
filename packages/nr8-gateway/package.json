@@ -20,6 +20,7 @@
     "@nr8/core": "^0.0.2",
     "@nr8/lib-jmespath": "^0.0.2",
     "@nr8/lib-yaml": "^0.0.2",
+    "async": "^3.2.1",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
