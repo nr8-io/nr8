@@ -1,5 +1,6 @@
 import { loadFile as yaml } from '@nr8/lib-yaml'
-import { set } from 'lodash'
+import { seq } from 'async'
+import { set, curry } from 'lodash'
 
 // core api handlers
 import create from './handlers/create'
@@ -13,14 +14,21 @@ import eventsProvider from './providers/events'
 import queueProvider from './providers/queue'
 import storageProvider from './providers/storage'
 
-// with definitions
+// plugin composition helper
+export const injectPlugins = curry(async (plugins, target) => {
+  const init = seq(...plugins)
+
+  return init(target)
+})
+
+// core definitions plugin
 export async function withDefinitions (api) {
   await api.create(yaml(__dirname, 'definitions/definitions.yaml'))
 
   return api
 }
 
-// with controllers
+// core controllers definition plugin
 export async function withControllers (api) {
   await api.create(yaml(__dirname, 'definitions/controllers.yaml'))
 
@@ -28,8 +36,7 @@ export async function withControllers (api) {
 }
 
 // nr8 core
-export default function (userConfig: any = {}) {
-  // config
+export function core (userConfig: any = {}) {
   const config = { ...userConfig }
 
   // default context
@@ -63,4 +70,20 @@ export default function (userConfig: any = {}) {
     context,
     ...handlers
   }
+}
+
+//
+export default async function (config: any = {}) {
+  // default plugins
+  const plugins = [
+    withDefinitions,
+    withControllers,
+    ...config.plugins
+  ]
+
+  // core api
+  const api = core(config)
+
+  // core api with plugins
+  return injectPlugins(plugins, api)
 }
