@@ -1,23 +1,25 @@
 //
 import fastify from 'fastify'
+import { seq } from 'async'
 import nr8, { withDefinitions, withControllers } from '@nr8/core'
 import withGateway from '@nr8/gateway'
 import { create, readOne, readAll } from '@nr8/server-fastify'
 
 //
 const server = fastify({ logger: true })
-let api = nr8()
 
 //
 const start = async () => {
   try {
-    console.log(1)
+    const middleware = seq(
+      withDefinitions,
+      withControllers,
+      withGateway
+    )
 
-    api = await withDefinitions(api)
-    api = await withControllers(api)
-    api = await withGateway(api)
+    const api = await middleware(nr8())
 
-    console.log(await api.context.storage.keys())
+    console.log(api)
 
     server.get('/:resource', async (request, reply) => {
       return reply

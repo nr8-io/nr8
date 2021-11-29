@@ -21,6 +21,7 @@
     "@nr8/core": "^0.0.2",
     "@nr8/gateway": "^0.0.2",
     "@nr8/server-fastify": "^0.0.2",
+    "async": "^3.2.2",
     "fastify": "^3.24.0",
     "lodash": "^4.17.21"
   },
