@@ -17,3 +17,10 @@ export const definitions = [
 export const controllers = [
   yaml(__dirname, 'controllers/gateway.yaml')
 ]
+
+//
+export default async function withGateway (nr8) {
+  await nr8.create(yaml(__dirname, 'controllers/gateway.yaml'))
+
+  return nr8
+}

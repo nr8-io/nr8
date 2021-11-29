@@ -1,12 +1,11 @@
 import { loadFile as yaml } from '@nr8/lib-yaml'
-import { eachSeries } from 'async'
 import { set } from 'lodash'
 
-// core api
-import create from './core/create'
-import read from './core/read'
-import update from './core/update'
-import destroy from './core/destroy'
+// core api handlers
+import create from './handlers/create'
+import read from './handlers/read'
+import update from './handlers/update'
+import del from './handlers/delete'
 
 // providers
 // import { error } from './providers/log'
@@ -14,21 +13,24 @@ import eventsProvider from './providers/events'
 import queueProvider from './providers/queue'
 import storageProvider from './providers/storage'
 
-// definitions
-const controllers = yaml(__dirname, 'definitions/controllers.yaml')
-const definiitions = yaml(__dirname, 'definitions/definitions.yaml')
+// with definitions
+export async function withDefinitions (api) {
+  await api.create(yaml(__dirname, 'definitions/definitions.yaml'))
 
-//
+  return api
+}
+
+// with controllers
+export async function withControllers (api) {
+  await api.create(yaml(__dirname, 'definitions/controllers.yaml'))
+
+  return api
+}
+
+// nr8 core
 export default function (userConfig: any = {}) {
   // config
-  const config = {
-    ...userConfig,
-    resources: [
-      controllers,
-      definiitions,
-      ...userConfig.resources || []
-    ]
-  }
+  const config = { ...userConfig }
 
   // default context
   const context = {
@@ -37,38 +39,28 @@ export default function (userConfig: any = {}) {
     storage: storageProvider(config.storageAdaptor)
   }
 
-  //
-  let initialized = false
-
+  // inject handler with context
   function withContext (fn) {
-    return (...args) => {
-      if (initialized) {
-        return fn(context, ...args)
-      }
-
-      throw new Error('nr8 core has not been initialized yet')
-    }
+    return (...args) => fn(context, ...args)
   }
 
-  // core api with configured context
-  const api = {
+  // core handlers with context
+  const handlers = {
     create: withContext(create),
     read: withContext(read),
     update: withContext(update),
-    destroy: withContext(destroy)
+    delete: withContext(del)
   }
 
-  set(context, 'api', api) // update context with api
-
-  // init nr8 core by creating default resources
-  async function init () {
-    await eachSeries(config.resources, async (resource) => {
-      return create(context, resource)
-    })
-
-    initialized = true
-  }
+  // add handlers to context
+  set(context, 'create', handlers.create)
+  set(context, 'read', handlers.create)
+  set(context, 'update', handlers.create)
+  set(context, 'delete', handlers.create)
 
   //
-  return { init, context, ...api }
+  return {
+    context,
+    ...handlers
+  }
 }
