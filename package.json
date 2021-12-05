@@ -1,5 +1,6 @@
 {
   "name": "nr8",
+  "version": "0.0.2",
   "private": true,
   "config": {
     "env": "development"

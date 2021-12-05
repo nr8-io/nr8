@@ -1,13 +1,7 @@
 const config = {
   ...require('./babel.config'),
-  configFile: false,
-  extensions: ['.ts', '.tsx']
-}
-process.exit()
-if (process.env.NODE_ENV.match('test')) {
-  config.ignore = [
-    'node_modules'
-  ]
+  extensions: ['.ts', '.tsx'],
+  configFile: false
 }
 
 process.on('unhandledRejection', error => {

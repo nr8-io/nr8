@@ -1,7 +1,8 @@
 const config = {
   ignore: [
     'node_modules',
-    '*.spec.ts'
+    '*.test.ts',
+    '*.d.ts'
   ],
   presets: [
     ['@babel/env', {
@@ -10,14 +11,13 @@ const config = {
       }
     }],
     '@babel/typescript'
-  ],
-  extensions: ['.ts', '.tsx']
+  ]
 }
 
-if (process.env.NODE_ENV.match('test')) {
+if (process.env.NODE_ENV && process.env.NODE_ENV.match('test')) {
   config.ignore = [
     'node_modules'
   ]
-  
+}
 
 module.exports = config

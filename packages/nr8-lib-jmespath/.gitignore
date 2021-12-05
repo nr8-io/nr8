@@ -3,3 +3,4 @@
 !.mocharc.js
 !babel.config.js
 !babel.register.js
+!jest.config.js
