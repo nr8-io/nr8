@@ -12,8 +12,7 @@
     "lint": "eslint --config .eslintrc.json ./ --ext .ts --ext .tsx",
     "postbuild": "npm run build-declarations",
     "test": "jest",
-    "test-dev": "NODE_ENV=development mocha -R min --watch --watch-files ./ --extension ts,tsx",
-    "test-one": "NODE_ENV=development mocha -R min",
+    "test-dev": "jest --watch",
     "test-ts": "tsc --noEmit"
   },
   "dependencies": {
