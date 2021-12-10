@@ -25,7 +25,7 @@ function routes (server, opts, done) {
 async function server (config: any = {}) {
   const { server: serverConfig, ...apiConfig } = config
 
-  // 
+  //
   const api = await nr8(apiConfig)
 
   //

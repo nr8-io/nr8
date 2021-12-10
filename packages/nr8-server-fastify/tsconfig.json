@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "*": ["*"],
@@ -12,6 +13,7 @@
   ],
   "exclude": [
     "node_modules",
-    "*.spec.ts",
+    "**/*.test.ts",
+    "**/*.spec.ts",
   ]
 }

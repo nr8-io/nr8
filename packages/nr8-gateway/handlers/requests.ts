@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid'
 import { get } from 'lodash'
 
 //
@@ -33,8 +32,6 @@ export async function create (request) {
     ...request,
     metadata: {
       ...object.metadata,
-      createdAt: new Date().toISOString(),
-      uid: nanoid()
     }
   }
 

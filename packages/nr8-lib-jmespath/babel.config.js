@@ -1,8 +1,9 @@
 const config = {
   ignore: [
     'node_modules',
-    '*.test.ts',
-    '*.d.ts'
+    '**/*.test.ts',
+    '**/*.spec.ts',
+    '**/*.d.ts'
   ],
   presets: [
     ['@babel/env', {
