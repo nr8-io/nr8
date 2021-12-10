@@ -20,6 +20,7 @@
     "@nr8/core": "^0.0.2",
     "@nr8/gateway": "^0.0.2",
     "@nr8/server-fastify": "^0.0.2",
+    "@nr8/dashboard": "^0.0.2",
     "async": "^3.2.2",
     "fastify": "^3.24.0",
     "lodash": "^4.17.21"
@@ -40,7 +41,6 @@
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^25.3.0",
-    "eslint-plugin-mocha": "^8.1.0",
     "eslint-plugin-promise": "^4.3.1",
     "jest": "^27.4.0",
     "nodemon": "^2.0.13",
