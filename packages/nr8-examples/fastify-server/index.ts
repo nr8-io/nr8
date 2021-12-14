@@ -11,7 +11,6 @@ const start = async () => {
       ],
       server: {
         routes: {
-          // register: false // default: true
           prefix: '/v1' // default: null
         },
         fastify: {
@@ -20,9 +19,7 @@ const start = async () => {
       }
     })
 
-    console.log(await api.context.storage.keys())
-
-    await api.listen(3000)
+    await api.listen(8080)
   } catch (err) {
     console.log(err)
     process.exit(1)

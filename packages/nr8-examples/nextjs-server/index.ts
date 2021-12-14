@@ -33,7 +33,7 @@ const start = async () => {
       handler: app.getRequestHandler()
     })
 
-    await api.listen(3000)
+    await api.listen(8080)
   } catch (err) {
     console.log(err)
     process.exit(1)
