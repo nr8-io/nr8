@@ -1,10 +1,11 @@
-import Navigation from '../navigation'
-import Footer from '../navigation'
+import { FunctionComponent } from 'react'
 
 //
-export default function Layout(props) {
-  const { children } = props
+import Navigation from '../navigation'
+import Footer from '../footer'
 
+//
+const Layout: FunctionComponent = ({ children }) => {
   return (
     <>
       <Navigation />
@@ -13,3 +14,5 @@ export default function Layout(props) {
     </>
   )
 }
+
+export default Layout
