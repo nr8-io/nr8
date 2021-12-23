@@ -31,42 +31,59 @@ export interface NavItem {
 
 const navItems: Array<NavItem> = [
   {
-    label: 'Inspiration',
+    label: 'Features'
+  },
+  {
+    label: 'API',
     children: [
       {
-        label: 'Explore Design Work',
-        subLabel: 'Trending Design to inspire you',
+        label: 'Scenarios',
+        subLabel: 'Explore, create and manage executable scenarios'
+      },
+      {
+        label: 'Actions',
+        subLabel: 'Explore, create and manage individual actions',
         href: '#'
       },
       {
-        label: 'New & Noteworthy',
-        subLabel: 'Up-and-coming Designers',
+        label: 'Events',
+        subLabel: 'Explore, create and manage events',
+        href: '#'
+      },
+      {
+        label: 'Queries',
+        subLabel: 'Explore, create and manage queries',
         href: '#'
       }
     ]
   },
   {
-    label: 'Find Work',
+    label: 'Gateway',
     children: [
       {
-        label: 'Job Board',
-        subLabel: 'Find your dream design job',
-        href: '#'
+        label: 'Services',
+        subLabel: 'Explore and manage gateway services'
       },
       {
-        label: 'Freelance Projects',
-        subLabel: 'An exclusive list for contract work',
+        label: 'Routers',
+        subLabel: 'Explore and manage gateway router resources',
         href: '#'
       }
     ]
   },
   {
-    label: 'Learn Design',
-    href: '#'
-  },
-  {
-    label: 'Hire Designers',
-    href: '#'
+    label: 'Configure',
+    children: [
+      {
+        label: 'Definitions',
+        subLabel: 'Explore and manage api definitions'
+      },
+      {
+        label: 'Controllers',
+        subLabel: 'Explore and manage api controllers',
+        href: '#'
+      }
+    ]
   }
 ]
 
