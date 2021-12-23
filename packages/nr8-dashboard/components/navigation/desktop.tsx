@@ -26,36 +26,41 @@ const DesktopSubNav: FunctionComponent<DesktopSubNavProps> = ({
   href,
   subLabel
 }) => {
+  //
+  const linkStyle = {
+    display: 'block',
+    p: 2,
+    rounded: 'md',
+    _hover: { bg: useColorModeValue('pink.50', 'gray.900') }
+  }
+
+  //
+  const labelStyle = {
+    fontWeight: 500,
+    transition: 'all .3s ease',
+    _groupHover: { color: 'pink.400' }
+  }
+
+  //
+  const iconStyle = {
+    align: 'center',
+    flex: 1,
+    justify: 'flex-end',
+    opacity: 0,
+    transform: 'translateX(-10px)',
+    transition: 'all .3s ease',
+    _groupHover: { opacity: '100%', transform: 'translateX(0)' }
+  }
+
   return (
-    <Link
-      href={href}
-      role={'group'}
-      display={'block'}
-      p={2}
-      rounded={'md'}
-      _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}
-    >
+    <Link href={href} role={'group'} {...linkStyle}>
       <Stack direction={'row'} align={'center'}>
         <Box>
-          <Text
-            transition={'all .3s ease'}
-            _groupHover={{ color: 'pink.400' }}
-            fontWeight={500}
-          >
-            {label}
-          </Text>
+          <Text {...labelStyle}>{label}</Text>
           <Text fontSize={'sm'}>{subLabel}</Text>
         </Box>
-        <Flex
-          transition={'all .3s ease'}
-          transform={'translateX(-10px)'}
-          opacity={0}
-          _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
-          justify={'flex-end'}
-          align={'center'}
-          flex={1}
-        >
-          <Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
+        <Flex {...iconStyle}>
+          <Icon color={'purple.900'} w={5} h={5} as={ChevronRightIcon} />
         </Flex>
       </Stack>
     </Link>
@@ -63,14 +68,32 @@ const DesktopSubNav: FunctionComponent<DesktopSubNavProps> = ({
 }
 
 //
-export interface DesktopNavProps extends NavItem {
+export interface DesktopNavProps {
   navItems: Array<NavItem>
 }
 
 const DesktopNav: FunctionComponent<DesktopNavProps> = ({ navItems }) => {
-  const linkColor = useColorModeValue('gray.600', 'gray.200')
-  const linkHoverColor = useColorModeValue('gray.800', 'white')
-  const popoverContentBgColor = useColorModeValue('white', 'gray.800')
+  //
+  const linkStyle = {
+    color: useColorModeValue('gray.600', 'gray.200'),
+    fontSize: 'sm',
+    fontWeight: 500,
+    p: 2,
+    _hover: {
+      textDecoration: 'none',
+      color: useColorModeValue('purple.900', 'white')
+    }
+  }
+
+  //
+  const popoverStyle = {
+    bg: useColorModeValue('white', 'gray.800'),
+    border: 0,
+    boxShadow: 'xl',
+    minW: 'sm',
+    p: 4,
+    rounded: 'xl'
+  }
 
   return (
     <Stack direction={'row'} spacing={4}>
@@ -78,30 +101,13 @@ const DesktopNav: FunctionComponent<DesktopNavProps> = ({ navItems }) => {
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
-              <Link
-                p={2}
-                href={navItem.href ?? '#'}
-                fontSize={'sm'}
-                fontWeight={500}
-                color={linkColor}
-                _hover={{
-                  textDecoration: 'none',
-                  color: linkHoverColor
-                }}
-              >
+              <Link href={navItem.href ?? '#'} {...linkStyle}>
                 {navItem.label}
               </Link>
             </PopoverTrigger>
 
             {navItem.children && (
-              <PopoverContent
-                border={0}
-                boxShadow={'xl'}
-                bg={popoverContentBgColor}
-                p={4}
-                rounded={'xl'}
-                minW={'sm'}
-              >
+              <PopoverContent {...popoverStyle}>
                 <Stack>
                   {navItem.children.map((child) => (
                     <DesktopSubNav key={child.label} {...child} />

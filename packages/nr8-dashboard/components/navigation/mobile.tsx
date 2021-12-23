@@ -13,6 +13,7 @@ import {
 
 import { ChevronDownIcon } from '@chakra-ui/icons'
 
+//
 import { NavItem } from '../navigation'
 
 //
@@ -25,44 +26,48 @@ const MobileNavItem: FunctionComponent<MobileNavItemProps> = ({
 }) => {
   const { isOpen, onToggle } = useDisclosure()
 
+  //
+  const style = {
+    align: 'center',
+    justify: 'space-between',
+    py: 2,
+    _hover: {
+      textDecoration: 'none'
+    }
+  }
+
+  //
+  const labelStyle = {
+    color: useColorModeValue('gray.600', 'gray.200'),
+    fontWeight: 600
+  }
+
+  //
+  const chevronStyle = {
+    h: 6,
+    transform: isOpen ? 'rotate(180deg)' : '',
+    transition: 'all .25s ease-in-out',
+    w: 6
+  }
+
+  //
+  const disclosureStyle = {
+    pl: 4,
+    borderLeft: 1,
+    borderStyle: 'solid',
+    borderColor: useColorModeValue('gray.200', 'gray.700'),
+    align: 'start'
+  }
+
   return (
     <Stack spacing={4} onClick={children && onToggle}>
-      <Flex
-        py={2}
-        as={Link}
-        href={href ?? '#'}
-        justify={'space-between'}
-        align={'center'}
-        _hover={{
-          textDecoration: 'none'
-        }}
-      >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue('gray.600', 'gray.200')}
-        >
-          {label}
-        </Text>
-        {children && (
-          <Icon
-            as={ChevronDownIcon}
-            transition={'all .25s ease-in-out'}
-            transform={isOpen ? 'rotate(180deg)' : ''}
-            w={6}
-            h={6}
-          />
-        )}
+      <Flex as={Link} href={href ?? '#'} {...style}>
+        <Text {...labelStyle}>{label}</Text>
+        {children && <Icon as={ChevronDownIcon} {...chevronStyle} />}
       </Flex>
 
       <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
-        <Stack
-          mt={2}
-          pl={4}
-          borderLeft={1}
-          borderStyle={'solid'}
-          borderColor={useColorModeValue('gray.200', 'gray.700')}
-          align={'start'}
-        >
+        <Stack {...disclosureStyle}>
           {children &&
             children.map((child) => (
               <Link key={child.label} py={2} href={child.href}>
@@ -83,12 +88,15 @@ export interface MobileNavProps {
 }
 
 const MobileNav: FunctionComponent<MobileNavProps> = ({ navItems }) => {
+  //
+  const style = {
+    bg: useColorModeValue('white', 'gray.800'),
+    display: { md: 'none' },
+    p: 4
+  }
+
   return (
-    <Stack
-      bg={useColorModeValue('white', 'gray.800')}
-      p={4}
-      display={{ md: 'none' }}
-    >
+    <Stack {...style}>
       {navItems.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}

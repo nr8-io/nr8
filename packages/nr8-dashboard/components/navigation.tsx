@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react'
+import { FunctionComponent, MouseEventHandler } from 'react'
 
 import {
   Box,
@@ -11,7 +11,8 @@ import {
   useColorMode,
   useColorModeValue,
   useBreakpointValue,
-  useDisclosure
+  useDisclosure,
+  ChakraComponent
 } from '@chakra-ui/react'
 
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons'
@@ -69,86 +70,98 @@ const navItems: Array<NavItem> = [
   }
 ]
 
-/**
- *
- */
-const Navigation: FunctionComponent = () => {
+//
+interface MobileMenuButtonProps {
+  open?: boolean
+  onClick: MouseEventHandler
+}
+
+//
+const MobileMenuButton: FunctionComponent<MobileMenuButtonProps> = ({
+  open,
+  onClick
+}) => {
+  //
+  const style = {
+    display: { base: 'flex', md: 'none' },
+    flex: { base: 1, md: 'auto' },
+    ml: { base: -2 }
+  }
+
+  return (
+    <Flex {...style}>
+      <IconButton
+        aria-label={'Toggle Navigation'}
+        icon={open ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
+        onClick={onClick}
+        variant={'ghost'}
+      />
+    </Flex>
+  )
+}
+
+//
+const LeftMenu: FunctionComponent = () => {
+  //
+  const logoStyle: any = {
+    textAlign: useBreakpointValue({ base: 'center', md: 'left' }),
+    fontFamily: 'heading',
+    color: useColorModeValue('gray.800', 'white')
+  }
+
+  return (
+    <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+      <Box {...logoStyle}>
+        <Image
+          src={useColorModeValue('/logo-purple.png', '/logo-white.png')}
+          alt={'Narrative'}
+          height={'32px'}
+        />
+      </Box>
+
+      <Flex align={'center'} display={{ base: 'none', md: 'flex' }} ml={10}>
+        <DesktopNav navItems={navItems} />
+      </Flex>
+    </Flex>
+  )
+}
+
+//
+const RightMenu: FunctionComponent = () => {
   const { colorMode, toggleColorMode } = useColorMode()
+
+  return (
+    <HStack flex={{ base: 1, md: 0 }} justify={'flex-end'} spacing={6}>
+      <Button onClick={toggleColorMode}>
+        {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+      </Button>
+    </HStack>
+  )
+}
+
+//
+const Navigation: FunctionComponent = () => {
   const { isOpen, onToggle } = useDisclosure()
+
+  //
+  const style = {
+    align: 'center',
+    bg: useColorModeValue('white', 'gray.800'),
+    borderBottom: 1,
+    borderColor: useColorModeValue('gray.200', 'gray.900'),
+    borderStyle: 'solid',
+    color: useColorModeValue('gray.600', 'white'),
+    minH: '60px',
+    px: { base: 4 },
+    py: { base: 2 }
+  }
 
   return (
     <Box>
-      <Flex
-        align={'center'}
-        bg={useColorModeValue('white', 'gray.800')}
-        borderBottom={1}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}
-        borderStyle={'solid'}
-        color={useColorModeValue('gray.600', 'white')}
-        minH={'60px'}
-        px={{ base: 4 }}
-        py={{ base: 2 }}
-      >
-        <Flex
-          display={{ base: 'flex', md: 'none' }}
-          flex={{ base: 1, md: 'auto' }}
-          ml={{ base: -2 }}
-        >
-          <IconButton
-            aria-label={'Toggle Navigation'}
-            icon={
-              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-            }
-            onClick={onToggle}
-            variant={'ghost'}
-          />
-        </Flex>
-
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          <Box
-            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-            fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}
-          >
-            <Image
-              src={useColorModeValue('/logo-purple.png', '/logo-white.png')}
-              alt={'Topvine Consulting EOOD'}
-              height={'32px'}
-            />
-          </Box>
-
-          <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-            <DesktopNav navItems={navItems} />
-          </Flex>
-        </Flex>
-
-        <HStack flex={{ base: 1, md: 0 }} justify={'flex-end'} spacing={6}>
-          <Button onClick={toggleColorMode}>
-            {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-          </Button>
-          <Button
-            as={'a'}
-            fontSize={'sm'}
-            fontWeight={400}
-            variant={'link'}
-            href={'#'}
-          >
-            Sign In
-          </Button>
-          <Button
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'pink.400'}
-            href={'#'}
-            _hover={{
-              bg: 'pink.300'
-            }}
-          >
-            Sign Up
-          </Button>
-        </HStack>
+      <Flex {...style}>
+        <MobileMenuButton open={isOpen} onClick={onToggle} />
+        <LeftMenu />
+        <RightMenu />
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>

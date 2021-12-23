@@ -26,6 +26,25 @@ const ListHeader: FunctionComponent = ({ children }) => {
 
 //
 const Footer: FunctionComponent = () => {
+  //
+  const logoSeparatorStyle = {
+    align: 'center',
+    _before: {
+      content: '""',
+      borderBottom: '1px solid',
+      borderColor: useColorModeValue('gray.200', 'gray.700'),
+      flexGrow: 1,
+      mr: 8
+    },
+    _after: {
+      content: '""',
+      borderBottom: '1px solid',
+      borderColor: useColorModeValue('gray.200', 'gray.700'),
+      flexGrow: 1,
+      ml: 8
+    }
+  }
+
   return (
     <Box
       bg={useColorModeValue('gray.50', 'gray.900')}
@@ -70,23 +89,7 @@ const Footer: FunctionComponent = () => {
         </SimpleGrid>
       </Container>
       <Box py={10}>
-        <Flex
-          align={'center'}
-          _before={{
-            content: '""',
-            borderBottom: '1px solid',
-            borderColor: useColorModeValue('gray.200', 'gray.700'),
-            flexGrow: 1,
-            mr: 8
-          }}
-          _after={{
-            content: '""',
-            borderBottom: '1px solid',
-            borderColor: useColorModeValue('gray.200', 'gray.700'),
-            flexGrow: 1,
-            ml: 8
-          }}
-        >
+        <Flex {...logoSeparatorStyle}>
           <Image
             src={useColorModeValue('/logo-purple.png', '/logo-white.png')}
             alt={'Topvine Consulting EOOD'}
