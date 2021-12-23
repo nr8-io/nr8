@@ -10,11 +10,13 @@ import {
   useColorModeValue
 } from '@chakra-ui/react'
 
+import { ExternalLinkIcon } from '@chakra-ui/icons'
+
 //
 import Link from './link'
 
 //
-const Header: FunctionComponent = ({ children }) => {
+const ListHeader: FunctionComponent = ({ children }) => {
   return (
     <Text fontWeight={'600'} fontSize={'lg'} mb={2}>
       {children}
@@ -32,24 +34,34 @@ const Footer: FunctionComponent = () => {
       <Container maxW={'container.lg'} pt={10}>
         <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
           <VStack align={'flex-start'}>
-            <Header>Learn</Header>
+            <ListHeader>Learn</ListHeader>
             <Link href={'#'}>About</Link>
             <Link href={'#'}>Installation</Link>
             <Link href={'#'}>Usage</Link>
           </VStack>
           <VStack align={'flex-start'}>
-            <Header>Communicty</Header>
-            <Link href={'#'}>Stack Overflow</Link>
-            <Link href={'#'}>Report an Issue</Link>
-            <Link href={'#'}>Feature request</Link>
+            <ListHeader>Communicty</ListHeader>
+            <Link href={'#'} isExternal>
+              Stack Overflow <ExternalLinkIcon mx="2px" />
+            </Link>
+            <Link href={'#'} isExternal>
+              Report an Issue <ExternalLinkIcon mx="2px" />
+            </Link>
+            <Link href={'#'} isExternal>
+              Feature request <ExternalLinkIcon mx="2px" />
+            </Link>
           </VStack>
           <VStack align={'flex-start'}>
-            <Header>More</Header>
-            <Link href={'#'}>Blog</Link>
-            <Link href={'#'}>Github</Link>
+            <ListHeader>More</ListHeader>
+            <Link href={'#'} isExternal>
+              Blog <ExternalLinkIcon mx="2px" />
+            </Link>
+            <Link href={'#'} isExternal>
+              Github <ExternalLinkIcon mx="2px" />
+            </Link>
           </VStack>
           <VStack align={'flex-start'}>
-            <Header>Legal</Header>
+            <ListHeader>Legal</ListHeader>
             <Link href={'#'}>Privacy</Link>
             <Link href={'#'}>Terms</Link>
             <Link href={'#'}>Data Policy</Link>
