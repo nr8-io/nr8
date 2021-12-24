@@ -13,6 +13,40 @@ make use of different skill levels more effectively, allow less experienced deve
 to contribute more to projects without as much hand holding and oversight and allow
 experienced engineers and architects to spend more time where their value lies
 
+# metric ideas
+
+metrics plugin could collect technical information like request counts, response times
+failure rates etc to help identify problems on the platform, this could identify which
+actions or queries need to be optmised or fixed.
+
+a user metrics plugin would also be good for tracking progress, after api items are implemented
+asking the developer about difficulty and other feedback would be useful for planning
+future work and prompting scenario writers if needed, tracking some information about
+the developers background could also help with future work assignments by letting us
+distribute work more effectively without as much guess work. Cultural information as
+used in the body of research "6 dimensions of culture" would likely help identify
+the different kinds of work that are better suited to different groups or individuals
+or better allocate tasks to encourage learning and growth by highlighting knowledge gaps
+etc... asking the developer things like enjoyment level of the problem the solved etc
+would also help keep a balance of satisfaction
+
+assigning specific implementations at the api level would create the communication
+pathways between developers who are working on intersecting scenarios and also
+allow management to see and understand the communication overheads or complexities
+and make changes as needed, also when new work is needed managers can more easily
+see who might already have experience with similar tasks etc
+
+peer review and QA can be built into the api by assigning roles like reviewer to encourage
+team work and code reviews before the functions are put into production, managers or
+architects could add quick notes on resources that would help solve the task and even
+assign mentors for people who are involved in the project and may have specific knowledge
+that could help.
+
+This type of situation allows for harder tasks to be given to less experienced developers
+for the sake of learning, time limits could be set with "back-up" develoeprs who
+can step in when it is obvious the problem will not be solved by the person it is assigned
+to.
+
 # story telling
 
 narrative
