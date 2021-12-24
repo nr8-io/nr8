@@ -31,7 +31,37 @@ export interface NavItem {
 
 const navItems: Array<NavItem> = [
   {
-    label: 'Features'
+    label: 'Story',
+    children: [
+      {
+        label: 'Topics',
+        subLabel:
+          'Explore, create and manage the topics, categories used in the narrative'
+      },
+      {
+        label: 'Scenes',
+        subLabel:
+          'Explore, create and manage scenes, backgrounds, situations used in the narrative',
+        href: '#'
+      },
+      {
+        label: 'Characters',
+        subLabel:
+          'Explore, create and manage characters, actors, players in the narrative',
+        href: '#'
+      },
+      {
+        label: 'Features',
+        subLabel:
+          'Explore, create and manage the features, problems, challenges that are described the narrative',
+        href: '#'
+      },
+      {
+        label: 'Scenarios',
+        subLabel: 'Explore, create or individual scenarios',
+        href: '#'
+      }
+    ]
   },
   {
     label: 'API',
