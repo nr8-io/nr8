@@ -1,0 +1,16 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Button } from '../components/buttons/button'
+import { primary as Primary, secondary as Secondary } from './Button.stories.mdx'
+
+<Meta title="List" component={Button} />
+
+<Canvas>
+  <Story name="Many">
+    {(args) => (
+      <ul>
+        <li><Primary {...{...Primary.args, ...args}} /></li>
+        <li><Secondary {...{...Secondary.args, ...args}} /></li>
+      </ul>
+    )}
+  </Story>
+</Canvas>

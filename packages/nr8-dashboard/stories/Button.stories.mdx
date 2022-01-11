@@ -1,0 +1,65 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Button } from '../components/buttons/button'
+
+<Meta title="Button" component={Button} />
+
+# Buttons
+
+<ArgsTable of={Button} />
+
+## Primary button
+
+Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.
+
+<Canvas>
+  <Story
+    name="Primary"
+    args={{
+      primary: true,
+      label: 'Primary'
+    }}
+  >
+    {(args) => <Button {...args} />}
+  </Story>
+</Canvas>
+
+## Secondary button
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
+
+<Story
+  name="Secondary"
+  args={{
+    label: 'Secondary'
+  }}
+>
+  {(args) => <Button {...args} />}
+</Story>
+
+## Large button
+
+Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.
+
+<Story
+  name="Large"
+  args={{
+    label: 'Large',
+    size: 'large'
+  }}
+>
+  {(args) => <Button {...args} />}
+</Story>
+
+## Small button
+
+Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.
+
+<Story
+  name="Small"
+  args={{
+    label: 'Small',
+    size: 'small'
+  }}
+>
+  {(args) => <Button {...args} />}
+</Story>
