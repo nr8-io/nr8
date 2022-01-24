@@ -10,7 +10,9 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook-docs": "start-storybook --docs --no-manager-cache",
+    "build-storybook": "build-storybook",
+    "build-storybook-docs": "build-storybook --docs"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
@@ -26,10 +28,14 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
+    "@storybook/addon-a11y": "^6.4.14",
     "@storybook/addon-actions": "^6.4.10",
     "@storybook/addon-essentials": "^6.4.10",
+    "@storybook/addon-interactions": "^6.4.14",
     "@storybook/addon-links": "^6.4.10",
+    "@storybook/jest": "0.0.5",
     "@storybook/react": "^6.4.10",
+    "@storybook/testing-library": "0.0.8",
     "@types/node": "16.11.12",
     "@types/react": "17.0.37",
     "babel-loader": "^8.2.3",
@@ -37,6 +43,7 @@
     "eslint-config-next": "12.0.7",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
+    "ts-dedent": "^2.2.0",
     "typescript": "4.5.3"
   },
   "gitHead": "fa8c850ab5d57d361c8f6c0fe1b057aec5f90e15"

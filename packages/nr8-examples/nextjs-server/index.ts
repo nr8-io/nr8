@@ -25,7 +25,7 @@ const start = async () => {
     const app = dashboard({
       // basePath: '/dashboard'
     })
-    
+
     //
     api.server.route({
       url: '/*',
