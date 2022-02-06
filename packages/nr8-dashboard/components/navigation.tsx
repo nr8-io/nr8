@@ -11,8 +11,7 @@ import {
   useColorMode,
   useColorModeValue,
   useBreakpointValue,
-  useDisclosure,
-  ChakraComponent
+  useDisclosure
 } from '@chakra-ui/react'
 
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons'
