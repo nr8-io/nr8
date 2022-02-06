@@ -195,7 +195,7 @@ const Navigation: FunctionComponent = () => {
     align: 'center',
     bg: useColorModeValue('white', 'gray.800'),
     borderBottom: 1,
-    borderColor: useColorModeValue('gray.200', 'gray.900'),
+    borderColor: useColorModeValue('gray.200', 'gray.600'),
     borderStyle: 'solid',
     color: useColorModeValue('gray.600', 'white'),
     minH: '60px',
@@ -204,7 +204,7 @@ const Navigation: FunctionComponent = () => {
   }
 
   return (
-    <Box>
+    <Box position={'sticky'} top={0}>
       <Flex {...style}>
         <MobileMenuButton open={isOpen} onClick={onToggle} />
         <LeftMenu />

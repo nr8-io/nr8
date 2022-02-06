@@ -13,6 +13,9 @@ import { mode } from '@chakra-ui/theme-tools'
 // base theme
 const styles = {
   global: (props: any) => ({
+    'html': {
+      height: '100%'
+    },
     'body': {
       fontFamily: 'body',
       color: mode('gray.800', 'whiteAlpha.900')(props),
