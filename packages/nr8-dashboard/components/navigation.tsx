@@ -204,7 +204,7 @@ const Navigation: FunctionComponent = () => {
   }
 
   return (
-    <Box position={'sticky'} top={0}>
+    <Box position={'sticky'} top={0} zIndex={100}>
       <Flex {...style}>
         <MobileMenuButton open={isOpen} onClick={onToggle} />
         <LeftMenu />
