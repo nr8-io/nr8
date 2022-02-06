@@ -90,6 +90,10 @@ const navItems: Array<NavItem> = [
     label: 'Gateway',
     children: [
       {
+        label: 'Clients',
+        subLabel: 'Explore and manage gateway clients'
+      },
+      {
         label: 'Services',
         subLabel: 'Explore and manage gateway services'
       },

@@ -183,3 +183,62 @@ Scenes could also establish the characters/actors who are there
 eg. Background: Given "John the administator"
 
 Feature/Problem/Case/Matter/Trouble/Challenge
+
+# Clients/Services (Consumers/Providers)
+
+Clients (Consumer)
+
+- can submit actions
+- can subscribe to events
+- one way communication
+  client has to submit an action or subscribe to an event to recieve information
+  from the gateway
+
+clients would be real world users or api users that do not provide a service to
+the gateway
+
+Services (Provider)
+
+- can do everything a client can
+- has additional config for routing
+- two way communication
+  gateway can directly call services when needed
+
+services provide handlers to the gateway and can be called by a router depending
+on the rules so services have connection information for the gateway to use, eg.
+https endpoint for triggering actions/events/queries
+
+Clients/Services can be labled and router would match on labels to fulfill situations
+like staging or canary feature releases.
+
+eg. common staging scenario Client is labled with env: staging, when the client
+sends a query the router will match the env and route to the correct service if it
+exists. Providers should register one Service per environment and each deployment would
+use the corresponding creds depending on its deployment env, the Service would be
+labeled like the client to ensure interactions from the Provider only interact with
+env: staging routers
+
+instead of running two completely different stacks this gives some flexibility
+on setting up multiple envs while running only one gateway, eg. demo, canary and
+using the same site and urls, front ends could also use the client labels to decide
+what UI to show and what not to show or what to load/not load
+
+canary example might be enabling some features for specific users but not others
+for testing, by labeling the user with a special key the gateway can direct certain
+requests to canary services instead of production which could be mixed and matched
+This is also a useful situation for staging and development where we want to maintain
+one testing dataset and can run additional databases/services linked.
+
+possible development workflow using user labels, a provider developer can create
+a user labeled specifically for their development env and add routing rules to redirect
+traffic to their service, this could be run locally or whatever the developer wants
+so long as it is reachable by the gateway either by exposing a port or through a tunnel
+etc... this could solve a big problem in projects where the developer has to run the
+whole stack locally because having multiple people work on a hosted env causes conflicts
+this method wouldn't have the same problems because the developer can redirect traffic
+only for clients labeled to do so without interupting other developers, and other developers
+could work with those developers by labeling their users to use their development service
+
+with some smart micro frontend code the gateway could also handle redirecting where
+frontends are loaded from, this would let local developers work specifically on the
+frontend code they need to while making use or others code
