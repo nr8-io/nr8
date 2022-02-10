@@ -1,16 +1,19 @@
 import type { AppProps } from 'next/app'
 
 //
-import '../styles/globals.css'
+import ChakraProvider from '../providers/chakra'
+import ReduxProvider from '../providers/redux'
 
 //
-import ChakraProvider from '../providers/chakra'
+import '../styles/globals.css'
 
 //
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider cookies={pageProps.cookies}>
-      <Component {...pageProps} />
+      <ReduxProvider>
+        <Component {...pageProps} />
+      </ReduxProvider>
     </ChakraProvider>
   )
 }

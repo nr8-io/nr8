@@ -15,7 +15,7 @@ const Layout: FunctionComponent = ({ children }) => {
       <Navigation />
       <Flex>
         <Menu />
-        <Document />
+        <Document>{children}</Document>
       </Flex>
       <Footer />
     </>
