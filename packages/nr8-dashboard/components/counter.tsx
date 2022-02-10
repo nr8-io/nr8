@@ -1,25 +1,39 @@
 import type { NextPage } from 'next'
-import { useSelector, useDispatch } from 'react-redux'
-import { decrement, increment } from '../providers/redux'
+import { useStateIn, createAction } from '../providers/redux'
+
+//
+export const useIncrement = createAction('counter/increment', (state: any) => {
+  return {
+    ...state,
+    counter: {
+      value: state.counter.value + 1
+    }
+  }
+})
+
+//
+export const useDecrement = createAction('counter/decrement', (state: any) => {
+  return {
+    ...state,
+    counter: {
+      value: state.counter.value - 1
+    }
+  }
+})
 
 const Counter: NextPage = () => {
-  const count = useSelector((state) => state.counter.value)
-  const dispatch = useDispatch()
+  const count = useStateIn('counter.value')
+  const increment = useIncrement()
+  const decrement = useDecrement()
 
   return (
     <div>
       <div>
-        <button
-          aria-label="Increment value"
-          onClick={() => dispatch(increment())}
-        >
+        <button aria-label="Increment value" onClick={() => increment()}>
           Increment
         </button>
         <span>{count}</span>
-        <button
-          aria-label="Decrement value"
-          onClick={() => dispatch(decrement())}
-        >
+        <button aria-label="Decrement value" onClick={() => decrement()}>
           Decrement
         </button>
       </div>

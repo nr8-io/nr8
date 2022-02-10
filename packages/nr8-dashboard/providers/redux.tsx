@@ -1,41 +1,77 @@
 import { FunctionComponent } from 'react'
-import { configureStore, createSlice } from '@reduxjs/toolkit'
-import { Provider as ReduxProvider } from 'react-redux'
+import { createStore, applyMiddleware, compose } from 'redux'
+import {
+  useSelector as useReduxSelector,
+  useDispatch,
+  TypedUseSelectorHook,
+  Provider as ReduxProvider
+} from 'react-redux'
+import { get } from 'lodash/fp'
 
-export const counterSlice = createSlice({
-  name: 'counter',
-  initialState: {
-    value: 0
-  },
-  reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1
-    },
-    decrement: (state) => {
-      state.value -= 1
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload
+//
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION__: any
+  }
+}
+
+//
+const devTools =
+  typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__
+    ? window.__REDUX_DEVTOOLS_EXTENSION__()
+    : (f: any) => f
+
+//
+const reducers: any = {}
+
+//
+const initialState = {
+  counter: {
+    value: 1
+  }
+}
+
+//
+export const store = createStore(
+  (state = initialState, action) => {
+    if (typeof reducers[action.type] === 'function') {
+      return reducers[action.type](state, action)
     }
-  }
-})
 
-// Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+    return state
+  },
+  initialState,
+  devTools
+)
 
-export const store = configureStore({
-  reducer: {
-    counter: counterSlice.reducer
-  }
-})
-
+//
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
+//
+export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector
+
+//
+export const useStateIn = (path: string) => {
+  return useSelector(get(path))
+}
+
+//
+export const createAction = (type: string, reducer?: any) => {
+  if (typeof reducer === 'function') {
+    reducers[type] = reducer
+  }
+
+  return () => {
+    const dispatch = useDispatch()
+
+    return (payload?: any) => {
+      dispatch({ type, payload })
+    }
+  }
+}
+
+//
 export const Provider: FunctionComponent = ({ children }) => {
   return <ReduxProvider store={store}>{children}</ReduxProvider>
 }
