@@ -1,12 +1,12 @@
 import { FunctionComponent } from 'react'
-import { createStore, applyMiddleware, compose } from 'redux'
+import { createStore } from 'redux'
 import {
   useSelector as useReduxSelector,
   useDispatch,
   TypedUseSelectorHook,
   Provider as ReduxProvider
 } from 'react-redux'
-import { get } from 'lodash/fp'
+import { get, merge } from 'lodash/fp'
 
 //
 declare global {
@@ -22,34 +22,36 @@ const devTools =
     : (f: any) => f
 
 //
-const reducers: any = {}
+let __store__: any
+let __reducers__: any = {}
+let __initialState__: any = {}
 
 //
-const initialState = {
-  counter: {
-    value: 1
-  }
+export const initialState = (state: any) => {
+  __initialState__ = merge(__initialState__, state)
 }
 
 //
-export const store = createStore(
-  (state = initialState, action) => {
-    if (typeof reducers[action.type] === 'function') {
-      return reducers[action.type](state, action)
-    }
+export const getStore = () => {
+  if (!__store__) {
+    __store__ = createStore(
+      (state = __initialState__, action) => {
+        if (typeof __reducers__[action.type] === 'function') {
+          return __reducers__[action.type](state, action)
+        }
 
-    return state
-  },
-  initialState,
-  devTools
-)
+        return state
+      },
+      __initialState__,
+      devTools
+    )
+  }
+
+  return __store__
+}
 
 //
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
-
-//
-export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector
+export const useSelector: TypedUseSelectorHook<any> = useReduxSelector
 
 //
 export const useStateIn = (path: string) => {
@@ -59,7 +61,7 @@ export const useStateIn = (path: string) => {
 //
 export const createAction = (type: string, reducer?: any) => {
   if (typeof reducer === 'function') {
-    reducers[type] = reducer
+    __reducers__[type] = reducer
   }
 
   return () => {
@@ -73,7 +75,7 @@ export const createAction = (type: string, reducer?: any) => {
 
 //
 export const Provider: FunctionComponent = ({ children }) => {
-  return <ReduxProvider store={store}>{children}</ReduxProvider>
+  return <ReduxProvider store={getStore()}>{children}</ReduxProvider>
 }
 
 export default Provider

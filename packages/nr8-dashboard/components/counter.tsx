@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { useStateIn, createAction } from '../providers/redux'
+import { initialState, useStateIn, createAction } from '../providers/redux'
 
 //
 export const useIncrement = createAction('counter/increment', (state: any) => {
@@ -18,6 +18,13 @@ export const useDecrement = createAction('counter/decrement', (state: any) => {
     counter: {
       value: state.counter.value - 1
     }
+  }
+})
+
+//
+initialState({
+  counter: {
+    value: 0
   }
 })
 
