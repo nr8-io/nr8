@@ -1,11 +1,12 @@
 import { FunctionComponent } from 'react'
 
-import { Flex, VStack, Box } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 
 //
-import Navigation from '../navigation'
+import Document from '../document'
 import Footer from '../footer'
 import Menu from '../menu'
+import Navigation from '../navigation'
 
 //
 const Layout: FunctionComponent = ({ children }) => {
@@ -14,7 +15,7 @@ const Layout: FunctionComponent = ({ children }) => {
       <Navigation />
       <Flex>
         <Menu />
-        <Box h={2000} flex={1}></Box>
+        <Document />
       </Flex>
       <Footer />
     </>
