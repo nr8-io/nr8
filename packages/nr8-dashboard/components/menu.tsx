@@ -6,24 +6,42 @@ import {
   AccordionButton,
   AccordionIcon,
   AccordionPanel,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Icon,
+  IconButton,
   List,
   ListItem,
   Box,
+  Link as ChakraLink,
+  Flex,
+  Text,
   VStack,
   useColorModeValue
 } from '@chakra-ui/react'
 
+import { BsThreeDots } from 'react-icons/bs'
+
 import Link from './link'
 
 //
-interface MenuItemProps {}
+interface MenuGroupProps {
+  href: string
+}
 
-export const MenuItem: FunctionComponent<MenuItemProps> = ({ children }) => {
+export const MenuGroup: FunctionComponent<MenuGroupProps> = ({
+  children,
+  href
+}) => {
   return (
     <h2>
       <AccordionButton _focus={{}}>
         <Box flex="1" textAlign="left">
-          {children}
+          <ChakraLink display={'block'} w={'100%'} href={href}>
+            {children}
+          </ChakraLink>
         </Box>
         <AccordionIcon />
       </AccordionButton>
@@ -49,23 +67,61 @@ export const SubMenuItem: FunctionComponent<SubMenuItemProps> = ({
   )
 }
 
+export const ActionMenu: FunctionComponent = () => {
+  return (
+    <Menu>
+      <MenuButton
+        as={IconButton}
+        size={'xs'}
+        icon={<Icon as={BsThreeDots} />}
+        variant="ghost"
+      />
+      <MenuList>
+        <MenuItem>New Topic</MenuItem>
+        <MenuItem>New Feature</MenuItem>
+      </MenuList>
+    </Menu>
+  )
+}
 //
-export const Menu: FunctionComponent = () => {
+export const LeftMenu: FunctionComponent = () => {
   //
   const style = {
     borderRight: 1,
     borderStyle: 'solid',
-    width: '300px',
+    width: '330px',
+    borderColor: useColorModeValue('gray.200', 'gray.600')
+  }
+
+  //
+  const titleStyle = {
+    borderBottom: 1,
+    borderStyle: 'solid',
+    padding: 2,
     borderColor: useColorModeValue('gray.200', 'gray.600')
   }
 
   return (
     <Box as="aside" {...style}>
       <Box position={'sticky'} top={'60px'} h={'100%'} maxH={'100vh'}>
-        <VStack as="nav" align="left" overflowY={'auto'} p={2} h={'100%'}>
+        <Box {...titleStyle}>
+          <Flex>
+            <Text flex={1}>Features</Text>
+            <ActionMenu />
+          </Flex>
+        </Box>
+        <VStack
+          as="nav"
+          align="left"
+          overflowY={'auto'}
+          mt={2}
+          pl={2}
+          pr={2}
+          h={'100%'}
+        >
           <Accordion allowMultiple>
             <AccordionItem border={'none'}>
-              <MenuItem>Repository Structure</MenuItem>
+              <MenuGroup href="#">Repository Structure</MenuGroup>
               <AccordionPanel pt={0} pr={0} pb={0}>
                 <List>
                   <SubMenuItem href="#">Documentation</SubMenuItem>
@@ -77,7 +133,7 @@ export const Menu: FunctionComponent = () => {
             </AccordionItem>
 
             <AccordionItem border={'none'}>
-              <MenuItem>Installing Dependencies</MenuItem>
+              <MenuGroup href="#">Installing Dependencies</MenuGroup>
               <AccordionPanel pt={0} pr={0} pb={0}>
                 <List>
                   <SubMenuItem href="#">Verify correct UID</SubMenuItem>
@@ -92,7 +148,7 @@ export const Menu: FunctionComponent = () => {
             </AccordionItem>
 
             <AccordionItem border={'none'}>
-              <MenuItem>Running the Application</MenuItem>
+              <MenuGroup href="#">Running the Application</MenuGroup>
               <AccordionPanel pt={0} pr={0} pb={0}>
                 <List>
                   <SubMenuItem href="#">Set the Environment</SubMenuItem>
@@ -112,4 +168,4 @@ export const Menu: FunctionComponent = () => {
   )
 }
 
-export default Menu
+export default LeftMenu

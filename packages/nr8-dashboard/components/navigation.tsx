@@ -32,23 +32,23 @@ const navItems: Array<NavItem> = [
   {
     label: 'Story',
     children: [
-      {
-        label: 'Topics',
-        subLabel:
-          'Explore, create and manage the topics, categories used in the narrative'
-      },
-      {
-        label: 'Scenes',
-        subLabel:
-          'Explore, create and manage scenes, backgrounds, situations used in the narrative',
-        href: '#'
-      },
-      {
-        label: 'Characters',
-        subLabel:
-          'Explore, create and manage characters, actors, players in the narrative',
-        href: '#'
-      },
+      // {
+      //   label: 'Topics',
+      //   subLabel:
+      //     'Explore, create and manage the topics, categories used in the narrative'
+      // },
+      // {
+      //   label: 'Scenes',
+      //   subLabel:
+      //     'Explore, create and manage scenes, backgrounds, situations used in the narrative',
+      //   href: '#'
+      // },
+      // {
+      //   label: 'Characters',
+      //   subLabel:
+      //     'Explore, create and manage characters, actors, players in the narrative',
+      //   href: '#'
+      // },
       {
         label: 'Features',
         subLabel:
