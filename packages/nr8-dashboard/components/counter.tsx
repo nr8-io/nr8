@@ -28,6 +28,15 @@ initialState({
   }
 })
 
+//
+initialState((state: any) => ({
+  ...state,
+  counter: {
+    ...state.counter,
+    name: 'counter'
+  }
+}))
+
 const Counter: NextPage = () => {
   const count = useStateIn('counter.value')
   const increment = useIncrement()

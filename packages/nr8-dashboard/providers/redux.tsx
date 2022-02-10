@@ -27,8 +27,12 @@ let __reducers__: any = {}
 let __initialState__: any = {}
 
 //
-export const initialState = (state: any) => {
-  __initialState__ = merge(__initialState__, state)
+export const initialState = (stateOrReducer: any) => {
+  if (typeof stateOrReducer === 'function') {
+    __initialState__ = stateOrReducer(__initialState__)
+  } else {
+    __initialState__ = merge(__initialState__, stateOrReducer)
+  }
 }
 
 //
