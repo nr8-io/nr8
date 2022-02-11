@@ -1,41 +1,54 @@
 import type { NextPage } from 'next'
-import { initialState, useStateIn, createAction } from '../providers/redux'
+import { initialState, useStateIn, createHook } from '../lib/react-redux-tookit'
 
 //
-export const useIncrement = createAction('counter/increment', (state: any) => {
-  return {
-    ...state,
+export const useIncrement = createHook({
+  type: 'counter/increment',
+  initialState: {
     counter: {
-      value: state.counter.value + 1
+      value: 0
+    }
+  },
+  prepare: (name: string) => {
+    return {
+      payload: {
+        name
+      }
+    }
+  },
+  reducer: (state: any) => {
+    return {
+      ...state,
+      counter: {
+        value: state.counter.value + 1
+      }
     }
   }
 })
 
 //
-export const useDecrement = createAction('counter/decrement', (state: any) => {
-  return {
-    ...state,
+export const useDecrement = createHook({
+  type: 'counter/decrement',
+  initialState: {
     counter: {
-      value: state.counter.value - 1
+      name: 'counter'
+    }
+  },
+  reducer: (state: any) => {
+    return {
+      ...state,
+      counter: {
+        value: state.counter.value - 1
+      }
     }
   }
 })
 
-//
 initialState({
   counter: {
-    value: 0
+    type: 'something else'
   }
 })
-
-//
-initialState((state: any) => ({
-  ...state,
-  counter: {
-    ...state.counter,
-    name: 'counter'
-  }
-}))
 
 const Counter: NextPage = () => {
   const count = useStateIn('counter.value')
@@ -45,7 +58,10 @@ const Counter: NextPage = () => {
   return (
     <div>
       <div>
-        <button aria-label="Increment value" onClick={() => increment()}>
+        <button
+          aria-label="Increment value"
+          onClick={() => increment('something')}
+        >
           Increment
         </button>
         <span>{count}</span>

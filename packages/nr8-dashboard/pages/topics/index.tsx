@@ -1,6 +1,4 @@
 import type { NextPage } from 'next'
-import { useSelector, useDispatch } from 'react-redux'
-import { decrement, increment } from '../../providers/redux'
 
 //
 import StandardLayout from '../../components/layouts/standard'
