@@ -1,7 +1,6 @@
 import {
   Action,
   AnyAction,
-  Dispatch,
   Middleware,
   Reducer,
   ReducersMapObject,
@@ -13,30 +12,27 @@ import {
   createStore
 } from 'redux'
 
+import isPlainObject from 'lodash/isPlainObject'
+
 //
-import isPlainObject from './isPlainObject'
 import { composeWithDevTools } from './devtoolsExtension'
 
 //
-import type { DispatchForMiddlewares, NoInfer } from './tsHelpers'
 import type { EnhancerOptions as DevToolsOptions } from './devtoolsExtension'
 
 //
 import getInitialState from './initialState'
-import getRootReducer from './reducer'
+import createReducer from './reducer'
 
 //
-const IS_PRODUCTION = process.env.NODE_ENV === 'production'
-
-/**
- * Callback function type, to be used in `ConfigureStoreOptions.enhancers`
- *
- * @public
- */
-export type ConfigureEnhancersCallback = (
+type ConfigureEnhancersCallback = (
   defaultEnhancers: readonly StoreEnhancer[]
 ) => StoreEnhancer[]
 
+//
+type Middlewares<S> = ReadonlyArray<Middleware<{}, S>>
+
+//
 interface ConfigureStoreOptions<
   S = any,
   A extends Action = AnyAction,
@@ -72,40 +68,14 @@ interface ConfigureStoreOptions<
   enhancers?: StoreEnhancer[] | ConfigureEnhancersCallback
 }
 
-type Middlewares<S> = ReadonlyArray<Middleware<{}, S>>
-
-/**
- * A Redux store returned by `configureStore()`. Supports dispatching
- * side-effectful _thunks_ in addition to plain actions.
- *
- * @public
- */
-export interface EnhancedStore<
-  S = any,
-  A extends Action = AnyAction,
-  M extends Middlewares<S> = Middlewares<S>
-> extends Store<S, A> {
-  /**
-   * The `dispatch` method of your store, enhanced by all its middlewares.
-   *
-   * @inheritdoc
-   */
-  dispatch: Dispatch<A> & DispatchForMiddlewares<M>
-}
-
 /**
  * A friendly abstraction over the standard Redux `createStore()` function.
- *
- * @param config The store configuration.
- * @returns A configured Redux store.
- *
- * @public
  */
 export function configureStore<
   S = any,
   A extends Action = AnyAction,
   M extends Middlewares<S> = []
->(options: ConfigureStoreOptions<S, A, M>): () => EnhancedStore<S, A, M> {
+>(options: ConfigureStoreOptions<S, A, M>): () => Store {
   const {
     reducer = undefined,
     middleware = [],
@@ -117,7 +87,7 @@ export function configureStore<
 
   if (typeof reducer === 'function') {
     combinedReducer = reducer
-  } else if (isPlainObject(reducer)) {
+  } else if (typeof reducer !== 'undefined' && isPlainObject(reducer)) {
     combinedReducer = combineReducers(reducer)
   } else {
     throw new Error(
@@ -125,7 +95,7 @@ export function configureStore<
     )
   }
 
-  if (!IS_PRODUCTION && middleware.some((item) => typeof item !== 'function')) {
+  if (middleware.some((item) => typeof item !== 'function')) {
     throw new Error(
       'each middleware provided to configureStore must be a function'
     )
@@ -137,8 +107,7 @@ export function configureStore<
 
   if (devTools) {
     finalCompose = composeWithDevTools({
-      // Enable capture of stack traces for dispatched Redux actions
-      trace: !IS_PRODUCTION,
+      trace: process.env.NODE_ENV !== 'production',
       ...(typeof devTools === 'object' && devTools)
     })
   }
@@ -160,7 +129,7 @@ export function configureStore<
   return () => {
     if (store === null) {
       const preloadedState = getInitialState()
-      const rootReducer = getRootReducer(combinedReducer)
+      const rootReducer = createReducer(combinedReducer)
 
       store = createStore(rootReducer, preloadedState, composedEnhancer)
     }

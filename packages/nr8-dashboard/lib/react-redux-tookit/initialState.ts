@@ -1,4 +1,4 @@
-import createNextState, { isDraftable } from 'immer'
+import createNextState from 'immer'
 import merge from 'lodash/merge'
 
 //
@@ -13,7 +13,6 @@ export const initialState = (stateOrReducer: any) => {
       merge(draftState, stateOrReducer)
     }
   })
-  console.log(state)
 }
 
 //

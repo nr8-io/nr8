@@ -1,7 +1,4 @@
 //
-export type { PrepareAction } from './createHook'
-
-//
 export { configureStore } from './configureStore'
 export { createAction } from './createAction'
 export { createMutation } from './createMutation'

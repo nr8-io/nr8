@@ -6,7 +6,6 @@ import createNextState, { isDraftable } from 'immer'
 import { exactMatch } from './reducer'
 import { initialState } from './initialState'
 import { useSelector } from './useSelector'
-import { AnyObject } from 'immer/dist/internal'
 
 //
 export type PrepareAction<P> =
@@ -26,7 +25,7 @@ const prepareAction = (payload: any) => {
 export interface CreateHookOptions {
   type?: string
   matcher?: RegExp
-  initialState?: ((state: any) => any) | any
+  initialState?: ((state: any) => any) | object | string | number
   selector?: string | ((state: any) => any)
   prepare?: PrepareAction<any>
   reducer?: Reducer

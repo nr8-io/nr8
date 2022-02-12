@@ -5,38 +5,44 @@ import {
   createAction,
   createMutation,
   createState,
-  useSelector
+  useSelector,
+  createReducer
 } from '../lib/react-redux-tookit'
 
-//
-export const useIncrement = createMutation('counter incremented', (state) => {
+// type map
+export const types = {
+  incr: 'counter incremented',
+  decr: 'counter decremented',
+  name: 'counter name changed',
+  login: 'user logged in'
+}
+
+// incrment the counter
+export const useIncrement = createMutation(types.incr, (state) => {
   state.counter.name = 'increment'
   state.counter.value++
 })
 
-//
-export const useDecrement = createMutation('counter decremented', (state) => {
+// decrement the counter
+export const useDecrement = createMutation(types.decr, (state) => {
   state.counter.name = 'decremented'
   state.counter.value--
 })
 
+// prepated action example with mutation
 export const useLogin = createAction(
-  'user logged in',
-  (username: string, password: string) => {
-    return {
-      payload: { username, password }
-    }
-  },
-  (state, action) => set(state, 'user', action.payload),
-  { user: {} }
+  types.login,
+  (username: string, password: string) => ({
+    payload: { username, password }
+  })
 )
 
-//
-export const useCounterName = createState(
-  'counter name changed',
-  'counter.name',
-  'default'
+createReducer(types.login, (state, action) =>
+  set(state, 'user', action.payload)
 )
+
+// example setter/getter action like useState
+export const useName = createState(types.name, 'counter.name', 'default')
 
 //
 initialState({
@@ -47,7 +53,7 @@ initialState({
 
 const Counter: NextPage = () => {
   const count = useSelector('counter.value')
-  const [counterName, setCounterName] = useCounterName()
+  const [name, setName] = useName()
   const increment = useIncrement()
   const decrement = useDecrement()
   const login = useLogin()
@@ -55,7 +61,7 @@ const Counter: NextPage = () => {
   return (
     <div>
       <div>
-        <h1>{counterName}</h1>
+        <h1>{name}</h1>
         <button
           aria-label="Increment value"
           onClick={() => {
@@ -77,7 +83,7 @@ const Counter: NextPage = () => {
         <button
           aria-label="Decrement value"
           onClick={() => {
-            setCounterName('default')
+            setName('default')
           }}
         >
           Reset name
