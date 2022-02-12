@@ -3,7 +3,8 @@ export type { PrepareAction } from './createHook'
 
 //
 export { configureStore } from './configureStore'
-export { createAction, createPreparedAction } from './createAction'
+export { createAction } from './createAction'
+export { createMutation } from './createMutation'
 export { createHook } from './createHook'
 export { createState } from './createState'
 export { createReducer } from './createReducer'

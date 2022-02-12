@@ -1,16 +1,14 @@
 import { Reducer } from 'redux'
-import { createHook, CreateHookOptions, PrepareAction } from './createHook'
+import { createHook, CreateHookOptions } from './createHook'
 
 //
-export const createAction = (
+export const createMutation = (
   type: string,
-  prepare?: PrepareAction<any>,
   reducer?: Reducer,
   initialState?: ((state: any) => any) | object | string | number
 ) => {
   const options: CreateHookOptions = {
     type,
-    prepare,
     reducer,
     initialState
   }

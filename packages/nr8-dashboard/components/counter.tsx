@@ -3,23 +3,33 @@ import set from 'lodash/set'
 import {
   initialState,
   createAction,
-  createHook,
+  createMutation,
   createState,
-  createReducer,
   useSelector
 } from '../lib/react-redux-tookit'
 
 //
-export const useIncrement = createAction('counter incremented', (state) => {
+export const useIncrement = createMutation('counter incremented', (state) => {
   state.counter.name = 'increment'
   state.counter.value++
 })
 
 //
-export const useDecrement = createAction('counter decremented', (state) => {
+export const useDecrement = createMutation('counter decremented', (state) => {
   state.counter.name = 'decremented'
   state.counter.value--
 })
+
+export const useLogin = createAction(
+  'user logged in',
+  (username: string, password: string) => {
+    return {
+      payload: { username, password }
+    }
+  },
+  (state, action) => set(state, 'user', action.payload),
+  { user: {} }
+)
 
 //
 export const useCounterName = createState(
@@ -40,6 +50,7 @@ const Counter: NextPage = () => {
   const [counterName, setCounterName] = useCounterName()
   const increment = useIncrement()
   const decrement = useDecrement()
+  const login = useLogin()
 
   return (
     <div>
@@ -70,6 +81,15 @@ const Counter: NextPage = () => {
           }}
         >
           Reset name
+        </button>
+        <br />
+        <button
+          aria-label="Decrement value"
+          onClick={() => {
+            login('michael', 'password')
+          }}
+        >
+          Login
         </button>
       </div>
     </div>
