@@ -1,72 +1,75 @@
 import type { NextPage } from 'next'
-import { initialState, useStateIn, createHook } from '../lib/react-redux-tookit'
+import set from 'lodash/set'
+import {
+  initialState,
+  createAction,
+  createHook,
+  createState,
+  createReducer,
+  useSelector
+} from '../lib/react-redux-tookit'
 
 //
-export const useIncrement = createHook({
-  type: 'counter/increment',
-  initialState: {
-    counter: {
-      value: 0
-    }
-  },
-  prepare: (name: string) => {
-    return {
-      payload: {
-        name
-      }
-    }
-  },
-  reducer: (state: any) => {
-    return {
-      ...state,
-      counter: {
-        value: state.counter.value + 1
-      }
-    }
-  }
+export const useIncrement = createAction('counter incremented', (state) => {
+  state.counter.name = 'increment'
+  state.counter.value++
 })
 
 //
-export const useDecrement = createHook({
-  type: 'counter/decrement',
-  initialState: {
-    counter: {
-      name: 'counter'
-    }
-  },
-  reducer: (state: any) => {
-    return {
-      ...state,
-      counter: {
-        value: state.counter.value - 1
-      }
-    }
-  }
+export const useDecrement = createAction('counter decremented', (state) => {
+  state.counter.name = 'decremented'
+  state.counter.value--
 })
 
+//
+export const useCounterName = createState(
+  'counter name changed',
+  'counter.name',
+  'default'
+)
+
+//
 initialState({
   counter: {
-    type: 'something else'
+    value: 0
   }
 })
 
 const Counter: NextPage = () => {
-  const count = useStateIn('counter.value')
+  const count = useSelector('counter.value')
+  const [counterName, setCounterName] = useCounterName()
   const increment = useIncrement()
   const decrement = useDecrement()
 
   return (
     <div>
       <div>
+        <h1>{counterName}</h1>
         <button
           aria-label="Increment value"
-          onClick={() => increment('something')}
+          onClick={() => {
+            increment('increment')
+          }}
         >
           Increment
         </button>
         <span>{count}</span>
-        <button aria-label="Decrement value" onClick={() => decrement()}>
+        <button
+          aria-label="Decrement value"
+          onClick={() => {
+            decrement('decrement')
+          }}
+        >
           Decrement
+        </button>
+        <br />
+        <button
+          aria-label="Decrement value"
+          onClick={() => {
+            setCounterName('default')
+          }}
+        >
+          Reset name
         </button>
       </div>
     </div>

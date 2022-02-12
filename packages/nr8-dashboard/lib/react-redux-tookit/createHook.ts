@@ -1,18 +1,14 @@
 import { Reducer } from 'redux'
 import { useDispatch } from 'react-redux'
-import { merge } from 'lodash'
+import createNextState, { isDraftable } from 'immer'
 
 //
 import { exactMatch } from './reducer'
 import { initialState } from './initialState'
+import { useSelector } from './useSelector'
+import { AnyObject } from 'immer/dist/internal'
 
-/**
- * A "prepare" method to be used as the second parameter of `createAction`.
- * Takes any number of arguments and returns a Flux Standard Action without
- * type (will be added later) that *must* contain a payload (might be undefined).
- *
- * @public
- */
+//
 export type PrepareAction<P> =
   | ((...args: any[]) => { payload: P })
   | ((...args: any[]) => { payload: P; meta: any })
@@ -27,33 +23,70 @@ const prepareAction = (payload: any) => {
 }
 
 //
-interface CreateHookOptions {
-  type: string
+export interface CreateHookOptions {
+  type?: string
   matcher?: RegExp
-  initialState?: any
+  initialState?: ((state: any) => any) | any
+  selector?: string | ((state: any) => any)
   prepare?: PrepareAction<any>
   reducer?: Reducer
 }
 
-export const createHook = (options: CreateHookOptions) => {
-  const { type, prepare = prepareAction, reducer, matcher } = options
+//
+export const defaultSelector = (state: any) => state
 
-  //
+//
+export const createHook = (options: CreateHookOptions): (() => any) => {
+  const {
+    type,
+    prepare = prepareAction,
+    reducer,
+    matcher,
+    selector = defaultSelector
+  } = options
+
+  // update initial state from options
   if (options.initialState) {
     initialState(options.initialState)
   }
 
-  //
-  if (!matcher && typeof reducer === 'function') {
-    exactMatch(type, reducer)
+  // register matcher with root reducer
+  if (type && typeof reducer === 'function') {
+    const immerReducer = (previousState: any, action: any) => {
+      // handle draftable state with immer
+      if (isDraftable(previousState)) {
+        return createNextState(previousState, (draftState: any) => {
+          return reducer(draftState, action)
+        })
+      }
+
+      // handle non dreaftable state
+      const nextState = reducer(previousState, action)
+
+      if (typeof nextState === 'undefined') {
+        if (previousState === null) {
+          return previousState
+        }
+
+        throw Error(
+          'A case reducer on a non-draftable value must not return undefined'
+        )
+      }
+
+      return nextState
+    }
+
+    exactMatch(type, immerReducer)
   }
 
-  //
   return () => {
     const dispatch = useDispatch()
 
-    return (...args: any[]) => {
-      dispatch({ ...prepare(...args), type })
-    }
+    return [
+      useSelector(selector),
+      (...args: any[]) => {
+        dispatch({ type, ...prepare(...args) })
+      }
+    ]
   }
 }

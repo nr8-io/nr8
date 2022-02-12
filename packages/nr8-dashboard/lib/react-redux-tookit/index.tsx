@@ -1,13 +1,14 @@
-import { useSelector } from 'react-redux'
-import { get } from 'lodash/fp'
-
 //
-export const useStateIn = (path: string) => {
-  return useSelector(get(path))
-}
+export type { PrepareAction } from './createHook'
 
 //
 export { configureStore } from './configureStore'
+export { createAction, createPreparedAction } from './createAction'
 export { createHook } from './createHook'
+export { createState } from './createState'
+export { createReducer } from './createReducer'
 export { initialState } from './initialState'
+export { useSelector } from './useSelector'
+
+//
 export * from 'react-redux'

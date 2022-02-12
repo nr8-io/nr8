@@ -1,17 +1,19 @@
-import { merge } from 'lodash'
+import createNextState, { isDraftable } from 'immer'
+import merge from 'lodash/merge'
 
 //
 let state: any = {}
 
 //
 export const initialState = (stateOrReducer: any) => {
-  if (stateOrReducer) {
+  state = createNextState(state, (draftState: any) => {
     if (typeof stateOrReducer === 'function') {
-      state = stateOrReducer(state)
+      return stateOrReducer(draftState)
     } else {
-      state = merge(state, stateOrReducer)
+      merge(draftState, stateOrReducer)
     }
-  }
+  })
+  console.log(state)
 }
 
 //

@@ -27,7 +27,7 @@ import { BsThreeDots } from 'react-icons/bs'
 import Link from './link'
 
 import { useIncrement, useDecrement } from './counter'
-import { useStateIn } from '../lib/react-redux-tookit'
+import { useSelector } from '../lib/react-redux-tookit'
 
 //
 interface MenuGroupProps {
@@ -71,7 +71,7 @@ export const SubMenuItem: FunctionComponent<SubMenuItemProps> = ({
 }
 
 export const ActionMenu: FunctionComponent = () => {
-  const counter = useStateIn('counter.value')
+  const counter = useSelector('counter.value')
   const incr = useIncrement()
   const decr = useDecrement()
 

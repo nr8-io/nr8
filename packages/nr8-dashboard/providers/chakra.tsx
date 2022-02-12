@@ -41,8 +41,6 @@ const config = {
 //
 export const theme = extendTheme({ config, styles })
 
-console.log(theme)
-
 //
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   return {
