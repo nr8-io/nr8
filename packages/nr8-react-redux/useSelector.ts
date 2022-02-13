@@ -8,3 +8,5 @@ export const useSelector = (pathOrSelector: string | ((state: any) => any)) => {
 
   return useReduxSelector(selector)
 }
+
+export default useSelector

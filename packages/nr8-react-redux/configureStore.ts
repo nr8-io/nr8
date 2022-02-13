@@ -137,3 +137,5 @@ export function configureStore<
     return store
   }
 }
+
+export default configureStore

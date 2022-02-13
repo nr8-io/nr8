@@ -23,3 +23,5 @@ export const createMutation = (
     return dispatch
   }
 }
+
+export default createMutation

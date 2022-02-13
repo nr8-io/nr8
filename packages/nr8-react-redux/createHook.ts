@@ -89,3 +89,5 @@ export const createHook = (options: CreateHookOptions): (() => any) => {
     ]
   }
 }
+
+export default createHook

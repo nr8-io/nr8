@@ -25,3 +25,5 @@ export const createAction = (
     return dispatch
   }
 }
+
+export default createAction

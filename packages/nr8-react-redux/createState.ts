@@ -73,3 +73,5 @@ export const createState = (
   //
   return createHook(options)
 }
+
+export default createState

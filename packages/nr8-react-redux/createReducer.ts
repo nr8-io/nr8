@@ -20,3 +20,5 @@ export const createReducer = (
 
   createHook(createHookOptions)
 }
+
+export default createReducer
