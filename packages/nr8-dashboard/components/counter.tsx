@@ -7,7 +7,7 @@ import {
   createState,
   useSelector,
   createReducer
-} from '../lib/react-redux-tookit'
+} from '@nr8/react-redux'
 
 // type map
 export const types = {

@@ -12,11 +12,6 @@ const store = configureStore({
   reducer: (state) => {
     return state
   },
-  preloadedState: {
-    counter: {
-      value: 1
-    }
-  },
   devTools: true
 })
 
