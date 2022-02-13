@@ -42,7 +42,7 @@ interface ConfigureStoreOptions<
    * A single reducer function that will be used as the root reducer, or an
    * object of slice reducers that will be passed to `combineReducers()`.
    */
-  reducer: Reducer<S, A> | ReducersMapObject<S, A>
+  reducer?: Reducer<S, A> | ReducersMapObject<S, A>
 
   /**
    * An array of Redux middleware to install. If not supplied, defaults to
@@ -77,7 +77,7 @@ export function configureStore<
   M extends Middlewares<S> = []
 >(options: ConfigureStoreOptions<S, A, M>): () => Store {
   const {
-    reducer = undefined,
+    reducer = (state: any) => state,
     middleware = [],
     devTools = true,
     enhancers = undefined
@@ -89,10 +89,6 @@ export function configureStore<
     combinedReducer = reducer
   } else if (typeof reducer !== 'undefined' && isPlainObject(reducer)) {
     combinedReducer = combineReducers(reducer)
-  } else {
-    throw new Error(
-      '"reducer" is a required argument, and must be a function or an object of functions that can be passed to combineReducers'
-    )
   }
 
   if (middleware.some((item) => typeof item !== 'function')) {

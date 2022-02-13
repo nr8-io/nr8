@@ -9,9 +9,6 @@ import '../styles/globals.css'
 
 //
 const store = configureStore({
-  reducer: (state) => {
-    return state
-  },
   devTools: true
 })
 
