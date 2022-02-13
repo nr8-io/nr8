@@ -27,7 +27,7 @@ import { BsThreeDots } from 'react-icons/bs'
 import Link from './link'
 
 import { useIncrement, useDecrement } from './counter'
-import { useSelector } from '../lib/react-redux-tookit'
+import { useSelector } from '@nr8/react-redux'
 
 //
 interface MenuGroupProps {

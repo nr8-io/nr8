@@ -2,10 +2,7 @@ import type { AppProps } from 'next/app'
 
 //
 import ChakraProvider from '../providers/chakra'
-import {
-  Provider as ReduxProvider,
-  configureStore
-} from '../lib/react-redux-tookit'
+import { Provider as ReduxProvider, configureStore } from '@nr8/react-redux'
 
 //
 import '../styles/globals.css'
