@@ -13,7 +13,7 @@ export interface LinkProps
 /**
  * Use charka-ui links with nextjs links
  */
-const LinkComponent: FunctionComponent<LinkProps> = ({
+const Link: FunctionComponent<LinkProps> = ({
   as,
   children,
   href,
@@ -40,4 +40,4 @@ const LinkComponent: FunctionComponent<LinkProps> = ({
   )
 }
 
-export default LinkComponent
+export default Link

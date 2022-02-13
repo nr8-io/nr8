@@ -16,6 +16,7 @@ const TableOfContents: FunctionComponent = ({ children }) => {
   // container style
   const style = {
     display: { base: 'none', xl: 'block' },
+    ml: 8,
     width: '330px'
   }
 

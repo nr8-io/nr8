@@ -26,9 +26,6 @@ import { BsThreeDots } from 'react-icons/bs'
 
 import Link from './link'
 
-import { useIncrement, useDecrement } from './counter'
-import { useSelector } from '@nr8/react-redux'
-
 //
 interface MenuGroupProps {
   href: string
@@ -71,10 +68,6 @@ export const SubMenuItem: FunctionComponent<SubMenuItemProps> = ({
 }
 
 export const ActionMenu: FunctionComponent = () => {
-  const counter = useSelector('counter.value')
-  const incr = useIncrement()
-  const decr = useDecrement()
-
   return (
     <Menu>
       <MenuButton
@@ -84,8 +77,8 @@ export const ActionMenu: FunctionComponent = () => {
         variant="ghost"
       />
       <MenuList>
-        <MenuItem onClick={() => incr()}>New Topic {counter}</MenuItem>
-        <MenuItem onClick={() => decr()}>New Feature</MenuItem>
+        <MenuItem>New Topic</MenuItem>
+        <MenuItem>New Feature</MenuItem>
       </MenuList>
     </Menu>
   )
