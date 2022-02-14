@@ -138,3 +138,15 @@ const MyComponent () => {
   ...
 }
 ```
+
+# ideas
+
+- configureStore constructor to take initialState for working with nextjs and providing
+  initialState from SSR
+- add reselect to keep parity with RTK
+- change createReducer to accept a reducer without a type or matcher for custom reducers
+  and interop with other redux ecosystem stuff
+- readd preloadedState to configureStore for parity
+- readd reducer to configureStore for parity and compose the reducers instead
+- add composeReducers function for reducer composition instead of combineReducers
+  that creates scoped reducers
