@@ -97,7 +97,7 @@ const Footer: FunctionComponent = () => {
           />
         </Flex>
         <Text pt={6} fontSize={'sm'} textAlign={'center'}>
-          Narrative Dashboard by Topvine Consulting EOOD
+          Narrate (nr8) Dashboard by Topvine Consulting EOOD
         </Text>
       </Box>
     </Box>

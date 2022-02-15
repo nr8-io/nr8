@@ -1,9 +1,18 @@
 import type { NextPage } from 'next'
-import { Box, Button, Flex, Heading, HStack, Tag, Text } from '@chakra-ui/react'
-import { ArrowRightIcon } from '@chakra-ui/icons'
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  HStack,
+  Tag,
+  Text,
+  HTMLChakraProps
+} from '@chakra-ui/react'
+import { ArrowRightIcon, ArrowLeftIcon } from '@chakra-ui/icons'
 
 //
-import StandardLayout from '../../components/layouts/standard'
+import DocumentLayout from '../../components/layouts/document'
 import Link from '../../components/link'
 
 //
@@ -19,43 +28,81 @@ export const Tags: React.FC = (props) => {
   )
 }
 
+export interface ButtonProps extends HTMLChakraProps<'button'> {
+  href: string
+}
+
+export const NextButton: React.FC<ButtonProps> = (props) => {
+  const { href = '#', children, ...moreProps } = props
+
+  return (
+    <Button
+      as={Link}
+      href={href}
+      variant="outline"
+      _hover={{
+        textDecoration: 'none'
+      }}
+      p={8}
+      justifyContent={'flex-end'}
+      {...moreProps}
+    >
+      <Box>
+        <Text fontWeight={'normal'} align={'right'}>
+          Next
+        </Text>
+        {children}
+      </Box>
+    </Button>
+  )
+}
+
+export const PreviousButton: React.FC<ButtonProps> = (props) => {
+  const { href = '#', children, ...moreProps } = props
+
+  return (
+    <Button
+      as={Link}
+      href={href}
+      variant="outline"
+      _hover={{
+        textDecoration: 'none'
+      }}
+      p={8}
+      justifyContent={'flex-start'}
+      {...moreProps}
+    >
+      <Box>
+        <Text fontWeight={'normal'} align={'left'}>
+          Next
+        </Text>
+        {children}
+      </Box>
+    </Button>
+  )
+}
+
 const Topics: NextPage = () => {
   return (
-    <StandardLayout>
+    <DocumentLayout>
       <Tags />
 
       <Box as="header" mt={4}>
         <Heading as={'h1'} size={'2xl'} mb={8}>
-          Getting Started
+          Topics
         </Heading>
         <Text>Let's learn about the most important nr8 concepts!</Text>
       </Box>
 
       <Flex as="footer" mt={16}>
-        <Button as={Link} href="#" flex={'1 50%'} variant="outline">
-          <Box fontWeight={'normal'}>Previous</Box>
-          <Box>Installation</Box>
-        </Button>
-        <Button
-          as={Link}
-          href="#"
-          flex={'1 50%'}
-          variant="outline"
-          p={8}
-          ml={4}
-          justifyContent={'flex-end'}
-        >
-          <Box>
-            <Text fontWeight={'normal'} align={'right'}>
-              Next
-            </Text>
-            <Text>
-              Playground <ArrowRightIcon w={2} />
-            </Text>
-          </Box>
-        </Button>
+        <PreviousButton href="#" flex={'1 50%'}>
+          <ArrowLeftIcon w={2} /> Installation
+        </PreviousButton>
+        <NextButton href="#" flex={'1 50%'} ml={4}>
+          Playground <ArrowRightIcon w={2} />
+        </NextButton>
       </Flex>
-    </StandardLayout>
+    </DocumentLayout>
   )
 }
 
