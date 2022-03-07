@@ -1,0 +1,43 @@
+{
+  "name": "@nr8/react-redux-toolkit",
+  "version": "0.1.0",
+  "description": "Unofficial but useful toolkit for redux development with react",
+  "author": "Michael Mitchell",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --declaration",
+    "clean": "git clean -f -X -e node_modules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nr8-io/nr8/tree/main/packages/react-redux-toolkit"
+  },
+  "bugs": {
+    "url": "https://github.com/nr8-io/nr8"
+  },
+  "homepage": "https://nr8.io",
+  "keywords": [
+    "redux",
+    "react",
+    "toolkit",
+    "reducer",
+    "immer",
+    "immutable",
+    "redux-toolkit"
+  ],
+  "files": [
+    "*.js",
+    "*.d.ts"
+  ],
+  "dependencies": {
+    "immer": "^9.0.12",
+    "lodash": "^4.17.21",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "typescript": "^4.5.4"
+  }
+}

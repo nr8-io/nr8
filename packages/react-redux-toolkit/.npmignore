@@ -1,11 +1,12 @@
 # deps
 .gitignore
+.prettierrc
 
 .git/
 .unotes/
 node_modules/
 
 # source
-decorators.ts
-index.ts
+*.ts
+!*.d.ts
 tsconfig.json

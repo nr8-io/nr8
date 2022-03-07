@@ -1,3 +1,6 @@
+Package not intended for public use yet but if you feel like using it and can figure it
+out from notes go for it.
+
 This is an extension of react-redux that adds utility similar to Redux Toolkit with
 a twist.
 
