@@ -7,9 +7,18 @@ import {
   HStack,
   Tag,
   Text,
-  HTMLChakraProps
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  HTMLChakraProps,
+  ComponentWithAs,
+  StackProps
 } from '@chakra-ui/react'
-import { ArrowRightIcon, ArrowLeftIcon } from '@chakra-ui/icons'
+import {
+  ChevronRightIcon,
+  ArrowRightIcon,
+  ArrowLeftIcon
+} from '@chakra-ui/icons'
 
 //
 import DocumentLayout from '../../components/layouts/document'
@@ -19,11 +28,17 @@ import Link from '../../components/link'
 export { getServerSideProps } from '../../providers/chakra'
 
 //
-export const Tags: React.FC = (props) => {
+export interface TagsProps extends ComponentWithAs<'div', StackProps> {}
+
+export const Tags: TagsProps = (props) => {
   return (
     <HStack spacing={2} {...props}>
-      <Tag fontWeight="bold">Draft</Tag>
-      <Tag fontWeight="bold">Version: 0.1.0-beta.15</Tag>
+      <Tag fontSize="xs" fontWeight="bold">
+        Draft
+      </Tag>
+      <Tag fontSize="xs" fontWeight="bold">
+        Version: 0.1.0-beta.15
+      </Tag>
     </HStack>
   )
 }
@@ -85,7 +100,24 @@ export const PreviousButton: React.FC<ButtonProps> = (props) => {
 const Page: NextPage = () => {
   return (
     <DocumentLayout>
-      <Tags />
+      <Breadcrumb
+        spacing="8px"
+        separator={<ChevronRightIcon color="gray.500" />}
+      >
+        <BreadcrumbItem>
+          <BreadcrumbLink fontSize="xs" href="#">
+            Home
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+
+        <BreadcrumbItem>
+          <BreadcrumbLink fontSize="xs" isCurrentPage href="#">
+            Topics
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+      </Breadcrumb>
+
+      <Tags mt={2} />
 
       <Box as="header" mt={4}>
         <Heading as={'h1'} size={'2xl'} mb={8}>
