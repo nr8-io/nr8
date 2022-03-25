@@ -1,5 +1,7 @@
 import type { NextPage } from 'next'
 import {
+  Alert,
+  AlertTitle,
   Box,
   Button,
   Flex,
@@ -12,12 +14,14 @@ import {
   BreadcrumbLink,
   HTMLChakraProps,
   ComponentWithAs,
-  StackProps
+  StackProps,
+  AlertDescription
 } from '@chakra-ui/react'
 import {
   ChevronRightIcon,
   ArrowRightIcon,
-  ArrowLeftIcon
+  ArrowLeftIcon,
+  InfoIcon
 } from '@chakra-ui/icons'
 
 //
@@ -124,6 +128,33 @@ const Page: NextPage = () => {
           Topics
         </Heading>
         <Text>Let&apos;s learn about the most important nr8 concepts!</Text>
+
+        <Alert
+          as="blockquote"
+          role="none"
+          status="success"
+          variant="left-accent"
+          borderRadius="sm"
+          mt="2"
+        >
+          <Box flex={1}>
+            <AlertTitle>Tip</AlertTitle>
+            <AlertDescription>
+              Use topics to help organise your content
+            </AlertDescription>
+          </Box>
+        </Alert>
+
+        <Heading as={'h2'} size={'xl'} mt={8} mb={4}>
+          Repository Structure
+        </Heading>
+        <Text>
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus
+          hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet
+          vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin
+          laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor
+          eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
+        </Text>
       </Box>
 
       <Flex as="footer" mt={16}>
