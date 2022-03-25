@@ -6,7 +6,6 @@ import {
   Text,
   Stack,
   Icon,
-  Link,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -17,6 +16,7 @@ import { ChevronRightIcon } from '@chakra-ui/icons'
 
 //
 import { NavItem } from '../navigation'
+import Link from '../link'
 
 //
 export interface DesktopSubNavProps extends NavItem {}
@@ -101,9 +101,11 @@ const DesktopNav: FunctionComponent<DesktopNavProps> = ({ navItems }) => {
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
-              <Link href={navItem.href ?? '#'} {...linkStyle}>
-                {navItem.label}
-              </Link>
+              <div>
+                <Link href={navItem.href ?? '#'} {...linkStyle}>
+                  {navItem.label}
+                </Link>
+              </div>
             </PopoverTrigger>
 
             {navItem.children && (

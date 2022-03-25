@@ -25,34 +25,39 @@ export interface NavItem {
   label: string
   subLabel?: string
   children?: Array<NavItem>
-  href?: string
+  href: string
 }
 
 const navItems: Array<NavItem> = [
   {
-    label: 'Story',
+    label: 'Narrative',
+    href: '#',
     children: [
-      // {
-      //   label: 'Topics',
-      //   subLabel:
-      //     'Explore, create and manage the topics, categories used in the narrative'
-      // },
-      // {
-      //   label: 'Scenes',
-      //   subLabel:
-      //     'Explore, create and manage scenes, backgrounds, situations used in the narrative',
-      //   href: '#'
-      // },
-      // {
-      //   label: 'Characters',
-      //   subLabel:
-      //     'Explore, create and manage characters, actors, players in the narrative',
-      //   href: '#'
-      // },
+      {
+        label: 'Topics',
+        subLabel:
+          'Explore, create and manage the high level topics and categories',
+        href: '/topics'
+      },
+      {
+        label: 'Stories',
+        subLabel: 'Draft, explore, and manage user stories',
+        href: '/stories'
+      },
+      {
+        label: 'Scenes',
+        subLabel: 'Explore, create and manage scenes, backgrounds & situations',
+        href: '#'
+      },
+      {
+        label: 'Characters',
+        subLabel: 'Explore, create and manage characters, actors, or players',
+        href: '#'
+      },
       {
         label: 'Features',
         subLabel:
-          'Explore, create and manage the features, problems, challenges that are described the narrative',
+          'Explore, create and manage the features, problems and challenges',
         href: '#'
       },
       {
@@ -64,10 +69,12 @@ const navItems: Array<NavItem> = [
   },
   {
     label: 'API',
+    href: '#',
     children: [
       {
         label: 'Scenarios',
-        subLabel: 'Explore, create and manage executable scenarios'
+        subLabel: 'Explore, create and manage executable scenarios',
+        href: '#'
       },
       {
         label: 'Actions',
@@ -88,14 +95,17 @@ const navItems: Array<NavItem> = [
   },
   {
     label: 'Gateway',
+    href: '#',
     children: [
       {
         label: 'Clients',
-        subLabel: 'Explore and manage gateway clients'
+        subLabel: 'Explore and manage gateway clients',
+        href: '#'
       },
       {
         label: 'Services',
-        subLabel: 'Explore and manage gateway services'
+        subLabel: 'Explore and manage gateway services',
+        href: '#'
       },
       {
         label: 'Routers',
@@ -106,10 +116,12 @@ const navItems: Array<NavItem> = [
   },
   {
     label: 'Configure',
+    href: '#',
     children: [
       {
         label: 'Definitions',
-        subLabel: 'Explore and manage api definitions'
+        subLabel: 'Explore and manage api definitions',
+        href: '#'
       },
       {
         label: 'Controllers',

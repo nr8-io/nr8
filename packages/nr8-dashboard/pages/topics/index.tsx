@@ -82,7 +82,7 @@ export const PreviousButton: React.FC<ButtonProps> = (props) => {
   )
 }
 
-const Topics: NextPage = () => {
+const Page: NextPage = () => {
   return (
     <DocumentLayout>
       <Tags />
@@ -91,7 +91,7 @@ const Topics: NextPage = () => {
         <Heading as={'h1'} size={'2xl'} mb={8}>
           Topics
         </Heading>
-        <Text>Let's learn about the most important nr8 concepts!</Text>
+        <Text>Let&apos;s learn about the most important nr8 concepts!</Text>
       </Box>
 
       <Flex as="footer" mt={16}>
@@ -106,4 +106,4 @@ const Topics: NextPage = () => {
   )
 }
 
-export default Topics
+export default Page

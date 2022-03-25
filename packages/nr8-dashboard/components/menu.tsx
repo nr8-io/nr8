@@ -15,7 +15,6 @@ import {
   List,
   ListItem,
   Box,
-  Link as ChakraLink,
   Flex,
   Text,
   VStack,
@@ -39,9 +38,9 @@ export const MenuGroup: FunctionComponent<MenuGroupProps> = ({
     <h2>
       <AccordionButton _focus={{}}>
         <Box flex="1" textAlign="left">
-          <ChakraLink display={'block'} w={'100%'} href={href}>
+          <Link display={'block'} w={'100%'} href={href}>
             {children}
-          </ChakraLink>
+          </Link>
         </Box>
         <AccordionIcon />
       </AccordionButton>

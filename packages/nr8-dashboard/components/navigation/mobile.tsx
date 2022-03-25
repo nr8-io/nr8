@@ -6,7 +6,6 @@ import {
   Stack,
   Collapse,
   Icon,
-  Link,
   useColorModeValue,
   useDisclosure
 } from '@chakra-ui/react'
@@ -15,6 +14,7 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
 
 //
 import { NavItem } from '../navigation'
+import Link from '../link'
 
 //
 export interface MobileNavItemProps extends NavItem {}
